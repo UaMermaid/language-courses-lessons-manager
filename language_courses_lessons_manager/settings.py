@@ -103,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#AUTH_USER_MODEL = ""
+AUTH_USER_MODEL = "courses.Student"
 
 LOGIN_REDIRECT_URL = "/"
 
