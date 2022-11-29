@@ -22,6 +22,16 @@ class Level(models.Model):
 
 class Student(AbstractUser):
     phone_number = models.CharField(max_length=12, unique=True)
+    student_language = models.ForeignKey(
+        to=Language,
+        on_delete=models.CASCADE,
+        default=Language.objects.get(id=1).pk
+    )
+    student_level = models.ForeignKey(
+        to=Level,
+        on_delete=models.CASCADE,
+        default=Level.objects.get(level="A1").pk
+    )
 
     class Meta:
         verbose_name = "student"
