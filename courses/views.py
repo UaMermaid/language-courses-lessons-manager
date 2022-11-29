@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views import generic
 
 from courses.models import Student, Lesson, Language
 
@@ -23,3 +25,9 @@ def index(request):
     }
 
     return render(request, "courses/index.html", context=context)
+
+
+class LanguageListView(LoginRequiredMixin, generic.ListView):
+    model = Language
+    template_name = "courses/language_list.html"
+    paginate_by = 5
