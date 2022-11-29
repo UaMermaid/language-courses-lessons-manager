@@ -22,8 +22,6 @@ class Level(models.Model):
 
 class Student(AbstractUser):
     phone_number = models.CharField(max_length=12, unique=True)
-    language = models.ForeignKey(to=Language, on_delete=models.CASCADE)
-    level = models.ForeignKey(to=Level, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "student"
@@ -37,7 +35,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=255)
     language = models.ForeignKey(to=Language, on_delete=models.CASCADE)
     level = models.ForeignKey(to=Level, on_delete=models.CASCADE)
-    date_time = models.DateTimeField()
+    date_time = models.DateTimeField(auto_now=True)
     is_approved = models.BooleanField()
     students = models.ManyToManyField(to=Student, related_name="lessons")
 
@@ -45,4 +43,4 @@ class Lesson(models.Model):
         ordering = ["date_time"]
 
     def __str__(self):
-        return f"{self.title} ({self.language}, {self.level}) {self.date_time}"
+        return f"{self.title} ({self.language}, {self.level})"

@@ -1,3 +1,25 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-# Create your views here.
+from courses.models import Student, Lesson, Language
+
+
+@login_required
+def index(request):
+    """View function for the home page of the site."""
+
+    num_students = Student.objects.count()
+    num_lessons = Lesson.objects.count()
+    num_languages = Language.objects.count()
+
+    num_visits = request.session.get("num_visits", 0)
+    request.session["num_visits"] = num_visits + 1
+
+    context = {
+        "num_students": num_students,
+        "num_lessons": num_lessons,
+        "num_languages": num_languages,
+        "num_visits": num_visits + 1,
+    }
+
+    return render(request, "courses/index.html", context=context)
