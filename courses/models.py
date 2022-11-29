@@ -8,6 +8,9 @@ class Language(models.Model):
     class Meta:
         ordering = ["name"]
 
+    def __str__(self):
+        return self.name
+
 
 class Level(models.Model):
     level = models.CharField(max_length=2, unique=True)
@@ -17,7 +20,7 @@ class Level(models.Model):
         ordering = ["level"]
 
     def __str__(self):
-        return f"{self.level} \n{self.description}"
+        return f"{self.level}"
 
 
 class Student(AbstractUser):
