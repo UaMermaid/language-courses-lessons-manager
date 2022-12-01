@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
-from courses.models import Student, Lesson, Language
+from courses.models import Student, Lesson, Language, Level
 
 
 @login_required
@@ -31,3 +31,8 @@ class LanguageListView(LoginRequiredMixin, generic.ListView):
     model = Language
     template_name = "courses/language_list.html"
     paginate_by = 5
+
+
+class LevelListView(LoginRequiredMixin, generic.ListView):
+    model = Level
+    template_name = "courses/level_list.html"

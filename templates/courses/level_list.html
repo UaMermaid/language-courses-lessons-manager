@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Common reference levels</h1>
+  <div class="changelist-form-container">
+  {% if level_list %}
+    <table class="table table-hover">
+      <tr>
+        <th>Level</th>
+        <th>Description</th>
+      </tr>
+
+      {% for level in level_list %}
+        <tr>
+          <td>
+              {{ level.level }}
+          </td>
+          <td>
+              {{ level.description }}
+          </td>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no levels.</p>
+  {% endif %}
+  </div>
+{% endblock %}

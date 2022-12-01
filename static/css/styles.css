@@ -1,0 +1,22 @@
+body {
+	background: linear-gradient(-45deg, #f5d289, #638bf1, rgba(243, 241, 146, 0.8), #5beed2);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+.navbar {
+    background-color: rgba(213, 202, 204, 0.6);
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 1% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 1% 50%;
+	}
+}
