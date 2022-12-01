@@ -37,7 +37,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success" type="submit">{% bs_icon 'search-heart' %}Search</button>
       </form>
       {% if user.is_authenticated %}
       <button class="btn btn-outline-secondary" type="button">

@@ -20,3 +20,20 @@ body {
 		background-position: 1% 50%;
 	}
 }
+
+.table {
+	width: 80%;
+	margin: auto;
+}
+.title-h1 {
+	text-align: center;
+	margin: 20px;
+}
+
+.th-align-center {
+	text-align: center;
+}
+
+.align-middle {
+	background-color: rgba(169, 169, 169, 0.4);
+}
