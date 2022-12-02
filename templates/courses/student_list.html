@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="title-h1">Our students</h1>
+  <div class="changelist-form-container">
+  {% if student_list %}
+    {% for student in student_list %}
+        <div>
+          <p>{{ student.first_name }} {{ student.last_name }}</p>
+        </div>
+    {% endfor %}
+  {% else %}
+    <p>There are no students.</p>
+  {% endif %}
+  </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from courses.views import index, LanguageListView, LevelListView
+from courses.views import index, LanguageListView, LevelListView, StudentListView
 
 urlpatterns = [
     path("", index, name="index"),
@@ -14,6 +14,7 @@ urlpatterns = [
         LevelListView.as_view(),
         name="level-list",
     ),
+    path("students/", StudentListView.as_view(), name="student-list"),
 ]
 
 app_name = "courses"

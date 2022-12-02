@@ -36,3 +36,8 @@ class LanguageListView(LoginRequiredMixin, generic.ListView):
 class LevelListView(LoginRequiredMixin, generic.ListView):
     model = Level
     template_name = "courses/level_list.html"
+
+
+class StudentListView(LoginRequiredMixin, generic.ListView):
+    model = Student
+    paginate_by = 1

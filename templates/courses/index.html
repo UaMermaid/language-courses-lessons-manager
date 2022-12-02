@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Courses Home</h1>
+    <h1 class="title-h1">Courses Home</h1>
     <p>Welcome!</p>
-    <h2>Dynamic content</h2>
-    <p>The service has the following record counts:</p>
-    <ul>
-        <li><strong>Students:</strong> {{ num_students }}</li>
-        <li><strong>Lessons:</strong> {{ num_lessons }}</li>
-        <li><strong>Languages:</strong> {{ num_languages }}</li>
-    </ul>
+    <div class="container"></div>
+      <h2>Dynamic content</h2>
+      <p>The service has the following record counts:</p>
+      <ul>
+          <li><strong>Students:</strong> {{ num_students }}</li>
+          <li><strong>Lessons:</strong> {{ num_lessons }}</li>
+          <li><strong>Languages:</strong> {{ num_languages }}</li>
+      </ul>
 
-    <p>You have visited this page
-        {{ num_visits }} time{{ num_visits|pluralize }}.
-    </p>
+      <p>You have visited this page
+          {{ num_visits }} time{{ num_visits|pluralize }}.
+      </p>
+    </div>
 
 {% endblock %}
