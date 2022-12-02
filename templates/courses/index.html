@@ -2,8 +2,12 @@
 
 {% block content %}
     <h1 class="title-h1">Courses Home</h1>
-    <p>Welcome!</p>
-    <div class="container"></div>
+    <div class="align-center">
+      {% if user.is_authenticated %}
+        <p>Welcome, dear {{ user.username }}!</p>
+      {% else %}
+        <p>Welcome, dear!</p>
+      {% endif %}
       <h2>Dynamic content</h2>
       <p>The service has the following record counts:</p>
       <ul>
@@ -16,5 +20,4 @@
           {{ num_visits }} time{{ num_visits|pluralize }}.
       </p>
     </div>
-
 {% endblock %}
