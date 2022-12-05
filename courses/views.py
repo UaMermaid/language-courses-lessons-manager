@@ -41,3 +41,7 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
 class StudentListView(LoginRequiredMixin, generic.ListView):
     model = Student
     paginate_by = 1
+
+
+def info(request):
+    return render(request, "courses/info.html")
