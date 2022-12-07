@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <h1 class="hero" style="height: 300px; text-align: center">
+    {{ lesson.title }}
+    <p>{{ lesson.date_time }}</p>
+  </h1>
+  <p>{{ lesson.language.name }} ({{ lesson.level.level }})</p>
+
+  <a href="" class="btn btn-danger">
+    Delete
+  </a>
+  <a href="" class="btn btn-secondary">
+    Update
+  </a>
+  <br>
+  <br>
+  <h1>Students
+    {% if student in lesson.students.all %}
+      <a href="" class="btn btn-danger link-to-page">
+        Delete me from this lesson
+      </a>
+    {% else %}
+      <a href="" class="btn btn-success link-to-page">
+        Assign me to this lesson
+      </a>
+    {% endif %}
+  </h1>
+  <hr>
+  <ul>
+    {% for student in lesson.students.all %}
+      <li>{% bs_icon "emoji-smile" %} {{ student.first_name }} {{ student.last_name }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

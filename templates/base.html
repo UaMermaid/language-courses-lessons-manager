@@ -20,18 +20,14 @@
 
 </head>
 
-<body>
+<body class="w3-black">
 <div class="sticky-xxl-top">
   {% block sidebar %}
     {% include "includes/navbar_new.html" %}
   {% endblock %}
   <br>
 
-  <div class="w3-container w3-center">
-    {% block content %}
-    {% endblock %}
-  </div>
-
+  {% block content %}{% endblock %}
 
   {% block pagination %}
     {% include "includes/pagination.html" %}

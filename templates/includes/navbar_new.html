@@ -6,22 +6,21 @@
     <a href="#home" class="w3-bar-item w3-button w3-padding-large">HOME</a>
     <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ABOUT</a>
     <a href="#service" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LANGUAGES</a>
+    <a href="{% url 'courses:lesson-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SCHEDULE</a>
     <a href="#testimony" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TESTIMONY</a>
     <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
     <input class="w3-bar-item w3-input w3-quarter w3-border w3-dark-gray w3-padding-large" type="search" placeholder="Search lesson...">
     <button class="w3-bar-item w3-button w3-border w3-teal w3-padding-large" type="submit">{% bs_icon 'search-heart' %} Search</button>
     {% if user.is_authenticated %}
     <button type="button" class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large">
-      <a href="{% url 'logout'%}?next={{request.path}}"></a>
-      {% bs_icon "box-arrow-right" %}
+      <a href="{% url 'logout'%}?next={{request.path}}">{% bs_icon "box-arrow-right" %}</a>
     </button>
     <button class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large" type="button">
       <a href="{{ user.get_absolute_url }}"></a> {% bs_icon "person-fill" %} {{ user.get_username }}
     </button>
     {% else %}
     <button type="button" class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large">
-      <a href="{% url 'login'%}?next={{request.path}}"></a>
-      Login
+      <a href="{% url 'login'%}?next={{request.path}}">Login</a>
     </button>
     {% endif %}
   </div>

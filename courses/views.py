@@ -1,8 +1,11 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
-
 from courses.models import Student, Lesson, Language, Level
 
 
@@ -30,7 +33,6 @@ def index(request):
 class LanguageListView(LoginRequiredMixin, generic.ListView):
     model = Language
     template_name = "courses/language_list.html"
-    paginate_by = 5
 
 
 class LevelListView(LoginRequiredMixin, generic.ListView):
@@ -45,3 +47,41 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
 
 def info(request):
     return render(request, "courses/info.html")
+
+
+class LessonListView(LoginRequiredMixin, generic.ListView):
+    model = Lesson
+    queryset = Lesson.objects.all().filter(date_time__gt=datetime.datetime.now())
+
+
+class LessonDetailView(LoginRequiredMixin,generic.DetailView):
+    model = Lesson
+
+
+class StudentDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Student
+    queryset = Student.objects.all().prefetch_related("lessons__level")
+
+
+class StudentCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Student
+    form_class = StudentCreationForm
+
+
+class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Student
+    success_url = reverse_lazy("courses:student-list")
+
+
+@login_required
+def add_student_to_lesson(request, pk):
+    lesson = Lesson.objects.get(pk=pk)
+    lesson.students.add(request.user.id)
+    return HttpResponseRedirect(reverse_lazy("taxi:car-detail", args=[pk]))
+
+
+@login_required
+def driver_delete_from_car(request, pk):
+    lesson = Lesson.objects.get(pk=pk)
+    lesson.students.add(request.user.id)
+    return HttpResponseRedirect(reverse_lazy("taxi:car-detail", args=[pk]))
