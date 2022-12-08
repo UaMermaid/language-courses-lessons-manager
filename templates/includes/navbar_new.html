@@ -16,7 +16,7 @@
       <a href="{% url 'logout'%}?next={{request.path}}">{% bs_icon "box-arrow-right" %}</a>
     </button>
     <button class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large" type="button">
-      <a href="{{ user.get_absolute_url }}"></a> {% bs_icon "person-fill" %} {{ user.get_username }}
+      <a href="{{ user.get_absolute_url }}"> {% bs_icon "person-fill" %} {{ user.get_username }}</a>
     </button>
     {% else %}
     <button type="button" class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large">

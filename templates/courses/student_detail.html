@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <h1 class="hero" style="height: 300px; text-align: center">
+    {{ student }}
+  </h1>
+  <h2>{{ student.username }}, {{ student.phone_number }}</h2>
+  <p>Study: {{ student.student_language.name }} ({{ student.student_level }})</p>
+  {% if student.username == user.username %}
+    <a href="{% url 'courses:student-delete' pk=student.pk %}" class="btn btn-danger">
+      Delete
+    </a>
+    <a href="" class="btn btn-secondary">
+      Update
+    </a>
+  {% endif %}
+
+  <br>
+  <br>
+  <h3>Lessons:
+    {% if student.lessons.all %}
+      <ul>
+      {% for lesson in student.lessons.all %}
+        <li>{{ lesson }}</li>
+      {% endfor %}
+      </ul>
+    {% else %}
+        There are no actual lessons yet
+    {% endif %}
+  </h3>
+
+{% endblock %}

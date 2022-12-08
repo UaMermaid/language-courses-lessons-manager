@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+
+from courses.forms import StudentCreationForm
 from courses.models import Student, Lesson, Language, Level
 
 
@@ -51,7 +53,8 @@ def info(request):
 
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
-    queryset = Lesson.objects.all().filter(date_time__gt=datetime.datetime.now())
+    paginate_by = 10
+    queryset = Lesson.objects.all().select_related("level").filter(date_time__gt=datetime.datetime.now())
 
 
 class LessonDetailView(LoginRequiredMixin,generic.DetailView):
@@ -74,14 +77,12 @@ class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 @login_required
-def add_student_to_lesson(request, pk):
-    lesson = Lesson.objects.get(pk=pk)
-    lesson.students.add(request.user.id)
-    return HttpResponseRedirect(reverse_lazy("taxi:car-detail", args=[pk]))
-
-
-@login_required
-def driver_delete_from_car(request, pk):
-    lesson = Lesson.objects.get(pk=pk)
-    lesson.students.add(request.user.id)
-    return HttpResponseRedirect(reverse_lazy("taxi:car-detail", args=[pk]))
+def toggle_assign_to_lesson(request, pk):
+    student = Student.objects.get(id=request.user.id)
+    if (
+        Lesson.objects.get(id=pk) in student.lessons.all()
+    ):
+        student.lessons.remove(pk)
+    else:
+        student.lessons.add(pk)
+    return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))

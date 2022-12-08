@@ -17,12 +17,12 @@
   <br>
   <br>
   <h1>Students
-    {% if student in lesson.students.all %}
-      <a href="" class="btn btn-danger link-to-page">
+    {% if lesson in user.lessons.all %}
+      <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="btn btn-danger link-to-page">
         Delete me from this lesson
       </a>
     {% else %}
-      <a href="" class="btn btn-success link-to-page">
+      <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="btn btn-success link-to-page">
         Assign me to this lesson
       </a>
     {% endif %}
