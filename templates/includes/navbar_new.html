@@ -3,13 +3,12 @@
 <div class="w3-top w3-text-white w3-black">
   <div class="w3-bar">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#home" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ABOUT</a>
-    <a href="#service" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LANGUAGES</a>
+    <a href="{% url 'courses:index' %}" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+    <a href="{% url 'courses:student-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TEAM</a>
+    <a href="{% url 'courses:language-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LANGUAGES</a>
     <a href="{% url 'courses:lesson-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SCHEDULE</a>
-    <a href="#testimony" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TESTIMONY</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT</a>
-    <input class="w3-bar-item w3-input w3-quarter w3-border w3-dark-gray w3-padding-large" type="search" placeholder="Search lesson...">
+    <a href="{% url 'courses:level-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LEVELS</a>
+    <input class="w3-bar-item w3-input w3-quarter w3-border w3-black w3-padding-large" type="search" placeholder="Search lesson...">
     <button class="w3-bar-item w3-button w3-border w3-teal w3-padding-large" type="submit">{% bs_icon 'search-heart' %} Search</button>
     {% if user.is_authenticated %}
     <button type="button" class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large">

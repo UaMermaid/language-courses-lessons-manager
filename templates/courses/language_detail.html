@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <h1 class="hero" style="height: 300px; text-align: center">
+    {{ language.name }}
+  </h1>
+
+
+  <a href="" class="btn btn-danger">
+    Delete
+  </a>
+  <a href="" class="btn btn-secondary">
+    Update
+  </a>
+  <div class="w3-container-third">
+  We have {{ num_lessons }} lesson{{ num_lessons|pluralize }}.
+  This language study {{ num_students }} student{{ num_students|pluralize }}.
+  </div>
+{% endblock %}

@@ -5,8 +5,16 @@
   <h1 class="hero" style="height: 300px; text-align: center">
     {{ student }}
   </h1>
-  <h2>{{ student.username }}, {{ student.phone_number }}</h2>
-  <p>Study: {{ student.student_language.name }} ({{ student.student_level }})</p>
+  <h2 class="w3-center">{{ student.username }},
+  {% if user.is_staff %}
+    phone number: {{ student.phone_number }}
+  {% endif %}
+  </h2>
+  {% if student.is_staff %}
+    Teaches:{{ student.student_language.name }}
+  {% else %}
+    <p>Study: {{ student.student_language.name }} ({{ student.student_level }})</p>
+  {% endif %}
   {% if student.username == user.username %}
     <a href="{% url 'courses:student-delete' pk=student.pk %}" class="btn btn-danger">
       Delete

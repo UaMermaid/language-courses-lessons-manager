@@ -11,6 +11,8 @@ class StudentCreationForm(UserCreationForm):
             "phone_number",
             "first_name",
             "last_name",
+            "student_language",
+            "student_level",
         )
 
 

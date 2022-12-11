@@ -20,7 +20,7 @@
       {% for language in language_list %}
         <tr>
           <td>
-              {{ language.id }}
+              <a href="{% url 'courses:language-detail' pk=language.pk %}">{{ language.id }}</a>
           </td>
           <td>
               {{ language.name }}

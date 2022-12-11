@@ -2,26 +2,49 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>
-    Students List
-    <a href="{% url 'courses:student-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
+  <h1 class="hero" style="height: 300px;">
+    OUR BEST TEAM
   </h1>
-
-    <form action="" method="get" class="form-inline">
-      {{ search_form|crispy }}
-      <input class="btn btn-light" type="submit" value="🔎">
-    </form>
-  <div class="changelist-form-container">
+  <br>
+  <div class="w3-row-padding">
+    <div class="w3-threequarter">
+      <form action="" method="get" class="form-inline">
+        {{ search_form|crispy }}
+        <input class="btn btn-light" type="submit" value="🔎">
+      </form>
+    </div>
+    <div class="w3-quarter">
+      <a href="{% url 'courses:student-create' %}" class="w3-button w3-indigo w3-right">
+        + Add new person
+      </a>
+    </div>
+  </div>
+  <br>
+  <div class="w3-row-padding">
   {% if student_list %}
     {% for student in student_list %}
-        <div>
-          <p>{{ student.first_name }} {{ student.last_name }}</p>
+      {% if student.is_staff %}
+        <div class="w3-col s4">
+          <div class="w3-card w3-yellow w3-xlarge w3-hover-teal w3-opacity-min" style="text-align: center; min-height: 200px">
+            <br>
+            <a href="{% url 'courses:student-detail' pk=student.pk %}">Teacher
+              <p>{{ student.first_name }}</p><p>{{ student.last_name }}</p></a>
+          </div>
         </div>
+      {% else %}
+        <div class="w3-col s4">
+          <div class="w3-card w3-teal w3-xlarge w3-hover-yellow w3-opacity-min" style="text-align: center; min-height: 200px">
+            <br>
+            <a href="{% url 'courses:student-detail' pk=student.pk %}">
+              <p>{{ student.first_name }}</p><p>{{ student.last_name }}</p></a>
+          </div>
+        </div>
+      {% endif %}
     {% endfor %}
   {% else %}
     <p>There are no students.</p>
   {% endif %}
   </div>
+  <br>
+  <br>
 {% endblock %}

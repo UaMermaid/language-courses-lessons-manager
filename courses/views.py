@@ -37,6 +37,21 @@ class LanguageListView(LoginRequiredMixin, generic.ListView):
     template_name = "courses/language_list.html"
 
 
+class LanguageDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Language
+
+    def get_context_data(self, **kwargs):
+        language = self.object.name
+        num_lessons = Lesson.objects.filter(language__name__icontains=language).count()
+        num_students = Student.objects.filter(student_language__name__icontains=language).count()
+
+        context = {
+            "num_students": num_students,
+            "num_lessons": num_lessons,
+        }
+        return context
+
+
 class LevelListView(LoginRequiredMixin, generic.ListView):
     model = Level
     template_name = "courses/level_list.html"
@@ -44,7 +59,7 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
 
 class StudentListView(LoginRequiredMixin, generic.ListView):
     model = Student
-    paginate_by = 1
+    paginate_by = 3
 
 
 def info(request):
@@ -66,7 +81,7 @@ class StudentDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Student.objects.all().prefetch_related("lessons__level")
 
 
-class StudentCreateView(LoginRequiredMixin, generic.CreateView):
+class StudentCreateView(generic.CreateView):
     model = Student
     form_class = StudentCreationForm
 
@@ -79,10 +94,19 @@ class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
 @login_required
 def toggle_assign_to_lesson(request, pk):
     student = Student.objects.get(id=request.user.id)
-    if (
-        Lesson.objects.get(id=pk) in student.lessons.all()
-    ):
-        student.lessons.remove(pk)
+    if student.student_language == Lesson.objects.get(id=pk).language:
+        if (
+            Lesson.objects.get(id=pk) in student.lessons.all()
+        ):
+            student.lessons.remove(pk)
+        else:
+            student.lessons.add(pk)
+        return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
+
+
+def confirm_lesson(request, pk):
+    if Lesson.objects.get(id=pk).is_approved is False:
+        Lesson.objects.get(id=pk).is_approved = True
     else:
-        student.lessons.add(pk)
+        Lesson.objects.get(id=pk).is_approved = False
     return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))

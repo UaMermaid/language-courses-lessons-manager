@@ -1,7 +1,8 @@
 from django.urls import path
 
 from courses.views import index, LanguageListView, LevelListView, StudentListView, info, LessonListView, \
-    LessonDetailView, StudentDetailView, StudentCreateView, StudentDeleteView, toggle_assign_to_lesson
+    LessonDetailView, StudentDetailView, StudentCreateView, StudentDeleteView, toggle_assign_to_lesson, confirm_lesson, \
+    LanguageDetailView
 
 urlpatterns = [
     path("index/", index, name="index"),
@@ -11,12 +12,17 @@ urlpatterns = [
         name="language-list",
     ),
     path(
+        "languages/<int:pk>/",
+        LanguageDetailView.as_view(),
+        name="language-detail",
+    ),
+    path(
         "levels/",
         LevelListView.as_view(),
         name="level-list",
     ),
     path("students/", StudentListView.as_view(), name="student-list"),
-    path("info/", info, name="info"),
+    path("", info, name="info"),
     path("shedule/", LessonListView.as_view(), name="lesson-list"),
     path("lessons/<int:pk>/", LessonDetailView.as_view(), name="lesson-detail"),
     path("students/<int:pk>/", StudentDetailView.as_view(), name="student-detail"),
@@ -30,6 +36,11 @@ urlpatterns = [
         "lessons/<int:pk>/toggle-assign/",
         toggle_assign_to_lesson,
         name="toggle-lesson-assign",
+    ),
+    path(
+        "lessons/<int:pk>/confirm/",
+        confirm_lesson,
+        name="confirm-lesson",
     ),
 ]
 
