@@ -3,6 +3,7 @@
 <div class="w3-top w3-text-white w3-black">
   <div class="w3-bar">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="{% url 'courses:info' %}" class="w3-bar-item w3-button w3-padding-large">{% bs_icon "info-square" %} INFO</a>
     <a href="{% url 'courses:index' %}" class="w3-bar-item w3-button w3-padding-large">HOME</a>
     <a href="{% url 'courses:student-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TEAM</a>
     <a href="{% url 'courses:language-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LANGUAGES</a>

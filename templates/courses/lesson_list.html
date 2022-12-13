@@ -24,7 +24,7 @@
         <td class="w3-center">
           {% if lesson in user.lessons.all %}
             <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}">
-              <button class="w3-button w3-border w3-dark-gray">-</button>
+              <button class="w3-button w3-border w3-dark-gray">{% bs_icon "dash" %}</button>
             </a>
           {% else %}
             <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}">

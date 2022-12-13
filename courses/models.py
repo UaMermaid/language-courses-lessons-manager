@@ -58,7 +58,7 @@ class Lesson(models.Model):
         datetime.datetime,
         default=datetime.datetime.now()
     )
-    is_approved = models.BooleanField()
+    is_approved = models.BooleanField(default=False)
     students = models.ManyToManyField(to=Student, related_name="lessons")
 
     class Meta:

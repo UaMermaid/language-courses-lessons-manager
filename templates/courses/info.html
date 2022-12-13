@@ -28,6 +28,7 @@
 <div class="w3-top w3-text-white w3-black">
   <div class="w3-bar">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="{% url 'courses:index' %}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-graduation-cap"></i> STUDY</a>
     <a href="#home" class="w3-bar-item w3-button w3-padding-large">HOME</a>
     <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ABOUT</a>
     <a href="#service" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LANGUAGES</a>
@@ -98,48 +99,46 @@
   </div>
 
   <div class="service" id="service">
-    <h2 class="title"> __Languages</h2>
-    <div class="card">
-      <div class="card-list">
-        <div class="card-image">
-          <img src="{% static 'img/america_900_1200.jpg' %}" />
-        </div>
-        <div class="card-text" >
-          <h4>English</h4>
-          <p>from $15/Hour</p>
-          <a href="#join">
-            <button class="w3-btn w3-red w3-margin-top w3-round" style="width:100%">Join</button>
-          </a>
-        </div>
-       </div>
+    <h2 class="title" style="padding: 0px"> __Languages</h2>
+  </div>
 
-      <div class="card-list">
-        <div class="card-image">
-          <img src="{% static 'img/italy_900_1200.jpg' %}"/>
-        </div>
-        <div class="card-text">
-          <h4>Italian</h4>
-          <p>from $20/Hour</p>
-          <a href="#join">
-            <button class="w3-btn w3-red w3-margin-top w3-round" style="width:100%">Join</button>
-          </a>
-        </div>
+  <div class="w3-row-padding">
+    <div class="w3-col s4">
+      <div class="w3-card w3-red w3-xlarge w3-hover-teal w3-opacity" style="text-align: center; margin-top: -50px">
+        <br>
+        <p>{{num_languages}} languages</p>
+        <br>
       </div>
-
-      <div class="card-list">
-        <div class="card-image">
-          <img src="{% static 'img/spain_900_1200.jpg' %}"/>
-        </div>
-        <div class="card-text">
-          <h4>Spanish</h4>
-          <p>from $15/Hour</p>
-          <a href="#join">
-            <button class="w3-btn w3-red w3-margin-top w3-round" style="width:100%">Join</button>
-          </a>
-        </div>
+    </div>
+    <div class="w3-col s4">
+      <div class="w3-card w3-blue-grey w3-xlarge w3-hover-teal w3-opacity" style="text-align: center; margin-top: -50px">
+        <br>
+        <p>{{num_lessons}} lessons</p>
+        <br>
+      </div>
+    </div>
+    <div class="w3-col s4">
+      <div class="w3-card w3-dark-grey w3-xlarge w3-hover-teal w3-opacity" style="text-align: center; margin-top: -50px">
+        <br>
+        <p>{{num_students}} students</p>
+        <br>
       </div>
     </div>
   </div>
+
+  <div class="languages">
+    <div class="container-languages">
+      <img class="language-img" src="{% static 'img/america_900_1200.jpg' %}" alt="">
+      <img class="language-img" src="{% static 'img/italy_900_1200.jpg' %}" alt="">
+      <img class="language-img" src="{% static 'img/spain_900_1200.jpg' %}" alt="">
+      <img class="language-img" src="{% static 'img/china_900_1200.jpg' %}" alt="">
+      <img class="language-img" src="{% static 'img/france_900_1200.jpg' %}" alt="">
+    </div>
+
+
+  </div>
+
+
 
   <div class="testimony" id="testimony">
     <h2 class="title"> __ What They say about us</h2>

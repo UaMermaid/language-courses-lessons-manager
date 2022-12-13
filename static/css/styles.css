@@ -133,6 +133,43 @@ h3{
   width:90%;
 
 }
+.languages{
+  margin: 50px 0px;
+  padding: 0;
+  box-sizing:border-box;
+  display:grid;
+  place-items:center;
+}
+.language-img{
+  width: 30%;
+  height: 100%;
+  object-fit:cover;
+
+  -webkit-box-reflect:below 2px linear-gradient(transparent, transparent, #0004);
+
+  transform-origin:center;
+  transform:perspective(800px) rotateY(25deg);
+  transition:0.5s;
+}
+.container-languages {
+  max-width:1000px;
+  max-height:350px;
+
+
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+
+}
+.container-languages:hover .language-img {
+  opacity:0.3;
+}
+.container-languages .language-img:hover {
+  transform:perspective(800px)       rotateY(0deg);
+  opacity:1;
+}
 .testimony{
   padding-bottom: 150px;
   background-color: #0a0c0f;;

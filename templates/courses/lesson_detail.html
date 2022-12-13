@@ -21,6 +21,13 @@
   {% endif %}
 
   <br>
+  <p>
+  {% if lesson.is_approved %}
+  Lesson is confirmed by teacher
+  {% else %}
+  Lesson isn't confirmed by teacher
+  {% endif %}
+  </p>
   <br>
   <h1>Students
     {% if lesson in user.lessons.all %}

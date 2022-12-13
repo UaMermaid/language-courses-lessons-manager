@@ -63,7 +63,16 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
 
 
 def info(request):
-    return render(request, "courses/info.html")
+    num_students = Student.objects.count()
+    num_lessons = Lesson.objects.count()
+    num_languages = Language.objects.count()
+
+    context = {
+        "num_students": num_students,
+        "num_lessons": num_lessons,
+        "num_languages": num_languages,
+    }
+    return render(request, "courses/info.html", context=context)
 
 
 class LessonListView(LoginRequiredMixin, generic.ListView):
@@ -94,19 +103,20 @@ class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
 @login_required
 def toggle_assign_to_lesson(request, pk):
     student = Student.objects.get(id=request.user.id)
-    if student.student_language == Lesson.objects.get(id=pk).language:
-        if (
-            Lesson.objects.get(id=pk) in student.lessons.all()
-        ):
-            student.lessons.remove(pk)
-        else:
-            student.lessons.add(pk)
-        return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
+    if (
+        Lesson.objects.get(id=pk) in student.lessons.all()
+    ):
+        student.lessons.remove(pk)
+    else:
+        student.lessons.add(pk)
+    return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
 
 
 def confirm_lesson(request, pk):
-    if Lesson.objects.get(id=pk).is_approved is False:
-        Lesson.objects.get(id=pk).is_approved = True
+    lesson = Lesson.objects.get(id=pk)
+    if lesson.is_approved is False:
+        lesson.is_approved = True
     else:
-        Lesson.objects.get(id=pk).is_approved = False
+        lesson.is_approved = False
+    lesson.save()
     return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))

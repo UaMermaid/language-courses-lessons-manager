@@ -5,7 +5,7 @@ from courses.views import index, LanguageListView, LevelListView, StudentListVie
     LanguageDetailView
 
 urlpatterns = [
-    path("index/", index, name="index"),
+    path("study/", index, name="index"),
     path(
         "languages/",
         LanguageListView.as_view(),

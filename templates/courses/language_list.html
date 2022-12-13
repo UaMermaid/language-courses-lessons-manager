@@ -2,44 +2,24 @@
 
 {% block content %}
   <h1>
-    Language List
-    <a href="#" class="btn btn-primary link-to-page">
-      Create
-    </a>
+    Chose language
   </h1>
 
   {% if language_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
-
-      {% for language in language_list %}
-        <tr>
-          <td>
-              <a href="{% url 'courses:language-detail' pk=language.pk %}">{{ language.id }}</a>
-          </td>
-          <td>
-              {{ language.name }}
-          </td>
-          <td>
-              <a href="">
-                Update
-              </a>
-            </td>
-            <td>
-              <a style="color: red"
-                href="">
-                Delete
-              </a>
-            </td>
-        </tr>
-      {% endfor %}
-    </table>
-
+    <div class="w3-row">
+      <div class="w3-container">
+        <ul class="w3-ul w3-large w3-border w3-third w3-center">
+          {% for language in language_list %}
+          <li><a href="{% url 'courses:language-detail' pk=language.pk %}"> {{ language.name }}</a></li>
+          {% endfor %}
+          {% if user.is_staff %}
+            <a href="" class="w3-button w3-indigo">
+            + Add language
+          </a>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
   {% else %}
       <p>There are no languages.</p>
   {% endif %}
