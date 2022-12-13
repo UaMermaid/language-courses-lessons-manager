@@ -27,6 +27,7 @@
             {{ lesson.students.count }}
         </td>
         <td class="w3-center">
+        {% if lesson.language == user.student_language%}
           {% if lesson in user.lessons.all %}
             <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}">
               <button class="w3-button w3-border w3-dark-gray">{% bs_icon "dash" %}</button>
@@ -36,6 +37,9 @@
               <button class="w3-button w3-border w3-dark-gray">+</button>
             </a>
           {% endif %}
+        {% else %}
+          <button class="w3-button w3-border w3-dark-gray">{% bs_icon "x-circle-fill" %}</button>
+        {% endif %}
         </td>
         <td class="w3-center">
           {% if lesson.is_approved %}

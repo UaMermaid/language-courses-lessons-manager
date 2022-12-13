@@ -30,7 +30,8 @@
   </p>
   <br>
   <h1>Students
-    {% if lesson in user.lessons.all %}
+  {% if lesson.language == user.student_language %}
+      {% if lesson in user.lessons.all %}
       <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="btn btn-danger link-to-page">
         Delete me from this lesson
       </a>
@@ -39,6 +40,7 @@
         Assign me to this lesson
       </a>
     {% endif %}
+  {% endif %}
   </h1>
   <hr>
   <ul>
