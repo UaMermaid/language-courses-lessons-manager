@@ -1,5 +1,7 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.http import request
 
 from courses.models import Student, Language, Level, Lesson
 
@@ -17,9 +19,21 @@ class StudentCreationForm(UserCreationForm):
 
 
 class LessonForm(forms.ModelForm):
-    language = forms.ModelChoiceField(queryset=Language.objects.all(), widget=forms.Select)
+
+    def __init__(self, *args, **kwargs):
+        """ Grants access to the request object so that only members of the current user
+        are given as options"""
+
+        self.request = kwargs.pop('request')
+        super(LessonForm, self).__init__(*args, **kwargs)
+        self.fields["language"].queryset = Language.objects.filter(
+            name=self.request.user.student_language)
+
     level = forms.ModelChoiceField(queryset=Level.objects.all(), widget=forms.Select)
+    date_time = forms.DateTimeInput(
+        attrs={"placeholder": "YYYY-MM-DD 24:00:00", "label": "Date and time"}
+    )
 
     class Meta:
         model = Lesson
-        fields = "__all__"
+        fields = ["title", "language", "level", "date_time"]

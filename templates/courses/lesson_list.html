@@ -3,22 +3,27 @@
 
 {% block content %}
   <h1 class="hero" style="height: 300px; text-align: center">Schedule</h1>
+  <div class="w3-container w3-center w3-cell-middle">
+    <a href="{% url 'courses:lesson-create' %}" class="w3-button w3-large">
+     CREATE NEW LESSON
+    </a>
+  </div>
   <div class="w3-container w3-center w3-margin">
 {% if lesson_list %}
   <table class="w3-table w3-large w3-dark-gray">
-    <tr class="w3-center w3-red">
-      <th>Lesson info</th>
-      <th class="w3-center">Number of students</th>
-      <th class="w3-center">Join</th>
-      <th class="w3-center">Confirmed</th>
+    <tr class="w3-center w3-indigo">
+      <th>LESSON INFORMATION</th>
+      <th class="w3-center">NUMBER OF STUDENTS</th>
+      <th class="w3-center">JOIN</th>
+      <th class="w3-center">CONFIRMED</th>
     </tr>
 
     {% for lesson in lesson_list %}
-      <tr class="w3-hover-text-red w3-text-light-grey">
-        <td>
-            <a href="{% url 'courses:lesson-detail' pk=lesson.pk %}">{{ lesson }}</a>
+      <tr class="w3-text-light-grey w3-hover-blue-gray">
+        <td class="w3-cell-middle">
+            <a class="w3-text-white" href="{% url 'courses:lesson-detail' pk=lesson.pk %}">{{ lesson }}</a>
         </td>
-        <td class="w3-center">
+        <td class="w3-center w3-cell-middle">
             {{ lesson.students.count }}
         </td>
         <td class="w3-center">

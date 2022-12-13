@@ -2,7 +2,7 @@ from django.urls import path
 
 from courses.views import index, LanguageListView, LevelListView, StudentListView, info, LessonListView, \
     LessonDetailView, StudentDetailView, StudentCreateView, StudentDeleteView, toggle_assign_to_lesson, confirm_lesson, \
-    LanguageDetailView
+    LanguageDetailView, LessonCreateView
 
 urlpatterns = [
     path("study/", index, name="index"),
@@ -42,6 +42,7 @@ urlpatterns = [
         confirm_lesson,
         name="confirm-lesson",
     ),
+    path("lesson/create/", LessonCreateView.as_view(), name="lesson-create"),
 ]
 
 app_name = "courses"

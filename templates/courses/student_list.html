@@ -25,17 +25,17 @@
     {% for student in student_list %}
       {% if student.is_staff %}
         <div class="w3-col s4">
-          <div class="w3-card w3-yellow w3-xlarge w3-hover-teal w3-opacity-min" style="text-align: center; min-height: 200px">
-            <br>
-            <a href="{% url 'courses:student-detail' pk=student.pk %}">Teacher
+          <div class="w3-card w3-blue-gray w3-xlarge w3-hover-teal w3-opacity-min" style="text-align: center; min-height: 200px">
+            <a class="w3-text-white" href="{% url 'courses:student-detail' pk=student.pk %}">
+              <p>Teacher</p>
               <p>{{ student.first_name }}</p><p>{{ student.last_name }}</p></a>
           </div>
         </div>
       {% else %}
         <div class="w3-col s4">
-          <div class="w3-card w3-teal w3-xlarge w3-hover-yellow w3-opacity-min" style="text-align: center; min-height: 200px">
+          <div class="w3-card w3-teal w3-xlarge w3-hover-blue-gray w3-opacity-min" style="text-align: center; min-height: 200px">
             <br>
-            <a href="{% url 'courses:student-detail' pk=student.pk %}">
+            <a class="w3-text-white" href="{% url 'courses:student-detail' pk=student.pk %}">
               <p>{{ student.first_name }}</p><p>{{ student.last_name }}</p></a>
           </div>
         </div>

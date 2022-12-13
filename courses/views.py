@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from courses.forms import StudentCreationForm
+from courses.forms import StudentCreationForm, LessonForm
 from courses.models import Student, Lesson, Language, Level
 
 
@@ -77,12 +77,24 @@ def info(request):
 
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
-    paginate_by = 10
+    paginate_by = 5
     queryset = Lesson.objects.all().select_related("level").filter(date_time__gt=datetime.datetime.now())
 
 
 class LessonDetailView(LoginRequiredMixin,generic.DetailView):
     model = Lesson
+
+
+class LessonCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Lesson
+    form_class = LessonForm
+    success_url = reverse_lazy("courses:lesson-list")
+
+    def get_form_kwargs(self):
+
+        kwargs = super(LessonCreateView, self).get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
 
 
 class StudentDetailView(LoginRequiredMixin, generic.DetailView):
