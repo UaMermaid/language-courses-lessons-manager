@@ -41,15 +41,31 @@ class LanguageDetailView(LoginRequiredMixin, generic.DetailView):
     model = Language
 
     def get_context_data(self, **kwargs):
-        language = self.object.name
-        num_lessons = Lesson.objects.filter(language__name__icontains=language).count()
-        num_students = Student.objects.filter(student_language__name__icontains=language).count()
+        language_name = self.object.name
+        num_lessons = Lesson.objects.filter(language__name__icontains=language_name, date_time__gt=datetime.datetime.now()).count()
+        num_students = Student.objects.filter(student_language__name__icontains=language_name).count()
+        language_pk = self.object.id
+        language_lessons_list = Lesson.objects.filter(language__name__icontains=language_name, date_time__gt=datetime.datetime.now()).values()
 
         context = {
             "num_students": num_students,
             "num_lessons": num_lessons,
+            "language_pk": language_pk,
+            "language_name": language_name,
+            "language_lessons_list": language_lessons_list
         }
         return context
+
+
+class LanguageCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Language
+    fields = "__all__"
+    success_url = reverse_lazy("courses:language-list")
+
+
+class LanguageDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Language
+    success_url = reverse_lazy("courses:language-list")
 
 
 class LevelListView(LoginRequiredMixin, generic.ListView):
@@ -132,3 +148,6 @@ def confirm_lesson(request, pk):
         lesson.is_approved = False
     lesson.save()
     return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
+
+
+

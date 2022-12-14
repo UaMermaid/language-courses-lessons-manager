@@ -2,7 +2,7 @@ from django.urls import path
 
 from courses.views import index, LanguageListView, LevelListView, StudentListView, info, LessonListView, \
     LessonDetailView, StudentDetailView, StudentCreateView, StudentDeleteView, toggle_assign_to_lesson, confirm_lesson, \
-    LanguageDetailView, LessonCreateView
+    LanguageDetailView, LessonCreateView, LanguageCreateView, LanguageDeleteView
 
 urlpatterns = [
     path("study/", index, name="index"),
@@ -16,6 +16,8 @@ urlpatterns = [
         LanguageDetailView.as_view(),
         name="language-detail",
     ),
+    path("language/create/", LanguageCreateView.as_view(), name="language-create"),
+    path("language/<int:pk>/delete/", LanguageDeleteView.as_view(), name="language-delete"),
     path(
         "levels/",
         LevelListView.as_view(),

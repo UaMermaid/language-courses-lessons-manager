@@ -17,8 +17,8 @@
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     {{ form|crispy }}
-
-    <input type="submit" value="Login" class="w3-button w3-border w3-black w3-right w3-padding-large" />
+    <p></p>
+    <input type="submit" value="Login" class="w3-button w3-indigo" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 </div>

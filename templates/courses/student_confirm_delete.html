@@ -6,7 +6,7 @@
   <form action="" method="post">
     {% csrf_token %}
 
-    <input type="submit" value="Yes" class="btn btn-danger">
+    <input type="submit" value="Yes" class="w3-button w3-red">
   </form>
-  <a href="{% url 'courses:student-detail' pk=user.pk %}"><button class="btn btn-primary">No</button></a>
+  <a href="{% url 'courses:student-detail' pk=user.pk %}"><button class="w3-button w3-indigo">No</button></a>
 {% endblock %}

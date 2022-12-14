@@ -30,9 +30,7 @@ class LessonForm(forms.ModelForm):
             name=self.request.user.student_language)
 
     level = forms.ModelChoiceField(queryset=Level.objects.all(), widget=forms.Select)
-    date_time = forms.DateTimeInput(
-        attrs={"placeholder": "YYYY-MM-DD 24:00:00", "label": "Date and time"}
-    )
+    date_time = forms.DateTimeInput()
 
     class Meta:
         model = Lesson

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete car?</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <input type="submit" value="YES" class="btn btn-danger">
+  </form>
+  <a href="{% url 'courses:language-detail' pk=language.pk %}">
+    <button class="w3-button w3-indigo">NO</button>
+  </a>
+{% endblock %}

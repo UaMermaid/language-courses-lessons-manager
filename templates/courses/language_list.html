@@ -7,13 +7,13 @@
 
   {% if language_list %}
     <div class="w3-row">
-      <div class="w3-container">
-        <ul class="w3-ul w3-large w3-border w3-third w3-center">
+      <div class="w3-content" style="max-width: 450px">
+        <ul class="w3-ul w3-large w3-border w3-center">
           {% for language in language_list %}
           <li><a href="{% url 'courses:language-detail' pk=language.pk %}"> {{ language.name }}</a></li>
           {% endfor %}
           {% if user.is_staff %}
-            <a href="" class="w3-button w3-indigo">
+            <a href="{% url 'courses:language-create' %}" class="w3-button w3-indigo">
             + Add language
           </a>
           {% endif %}

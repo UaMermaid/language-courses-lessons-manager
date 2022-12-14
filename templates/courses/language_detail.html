@@ -3,18 +3,32 @@
 
 {% block content %}
   <h1 class="hero" style="height: 300px; text-align: center">
-    {{ language.name }}
+    {{ language_name }}
   </h1>
 
 
-  <a href="" class="btn btn-danger">
+  <a href="{% url 'courses:language-delete' pk=language_pk %}" class="w3-button w3-red">
     Delete
   </a>
-  <a href="" class="btn btn-secondary">
+  <a href="" class="w3-button w3-indigo">
     Update
   </a>
-  <div class="w3-container-third">
-  We have {{ num_lessons }} lesson{{ num_lessons|pluralize }}.
-  This language study {{ num_students }} student{{ num_students|pluralize }}.
+  <br>
+  <br>
+  <div class="w3-content">
+    <p>Currently we have {{ num_lessons }} lesson{{ num_lessons|pluralize }}
+      of {{ language_name }} language.
+      This language study {{ num_students }} student{{ num_students|pluralize }}.
+    </p>
+
+    <ul class="w3-ul w3-hoverable">
+    {% for lesson in language_lessons_list %}
+      <li class="w3-dark-gray w3-hover-blue-gray">
+        <a href="{% url 'courses:lesson-detail' pk=lesson.id %}">
+          <p class="w3-wight">{{ lesson.date_time|date:"d.m.Y" }} {{ lesson.date_time|time:"H:i" }} - {{ lesson.title }}</p>
+        </a>
+      </li>
+    {% endfor %}
+    </ul>
   </div>
 {% endblock %}
