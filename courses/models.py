@@ -27,7 +27,7 @@ class Level(models.Model):
 
 
 class Student(AbstractUser):
-    phone_number = models.CharField(max_length=12, unique=True)
+    phone_number = models.CharField(max_length=13, unique=True)
     student_language = models.ForeignKey(
         to=Language,
         on_delete=models.CASCADE,

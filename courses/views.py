@@ -42,10 +42,16 @@ class LanguageDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         language_name = self.object.name
-        num_lessons = Lesson.objects.filter(language__name__icontains=language_name, date_time__gt=datetime.datetime.now()).count()
-        num_students = Student.objects.filter(student_language__name__icontains=language_name).count()
         language_pk = self.object.id
-        language_lessons_list = Lesson.objects.filter(language__name__icontains=language_name, date_time__gt=datetime.datetime.now()).values()
+        actual_lesson_query = Lesson.objects.filter(
+            language__name__icontains=language_name,
+            date_time__gt=datetime.datetime.now()
+        )
+        num_lessons = actual_lesson_query.count()
+        num_students = Student.objects.filter(
+            student_language__name__icontains=language_name
+        ).count()
+        language_lessons_list = actual_lesson_query.values()
 
         context = {
             "num_students": num_students,

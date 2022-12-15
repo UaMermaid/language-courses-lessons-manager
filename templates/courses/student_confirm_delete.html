@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="hero" style="height: 300px; text-align: center">Do you want to delete your page?</h1>
+  <h1 class="hero" style="height: 300px; text-align: center">Do you want to delete
+    {% if student.username == user.username %}
+      your
+    {% else %}
+      this
+    {% endif %}
+    page?</h1>
 
   <form action="" method="post">
     {% csrf_token %}
 
     <input type="submit" value="Yes" class="w3-button w3-red">
   </form>
-  <a href="{% url 'courses:student-detail' pk=user.pk %}"><button class="w3-button w3-indigo">No</button></a>
+  <a href="{% url 'courses:student-detail' pk=student.pk %}"><button class="w3-button w3-indigo">No</button></a>
 {% endblock %}

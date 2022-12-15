@@ -23,6 +23,11 @@
       Update
     </a>
   {% endif %}
+  {% if student.username != user.username and user.is_staff %}
+    <a href="{% url 'courses:student-delete' pk=student.pk %}" class="btn btn-danger">
+      Delete
+    </a>
+  {% endif %}
 
   <br>
   <br>
