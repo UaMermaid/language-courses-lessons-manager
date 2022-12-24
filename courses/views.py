@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from courses.forms import StudentCreationForm, LessonForm
+from courses.forms import StudentCreationForm, LessonForm, LessonUpdateForm, StudentSearchForm
 from courses.models import Student, Lesson, Language, Level
 
 
@@ -82,6 +82,28 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
 class StudentListView(LoginRequiredMixin, generic.ListView):
     model = Student
     paginate_by = 3
+    queryset = Student.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StudentListView, self).get_context_data(**kwargs)
+
+        username = self.request.GET.get("username", "")
+
+        context["search_form"] = StudentSearchForm(initial={
+            "username": username
+        })
+
+        return context
+
+    def get_queryset(self):
+        form = StudentSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+
+        return self.queryset
 
 
 def info(request):
@@ -117,6 +139,17 @@ class LessonCreateView(LoginRequiredMixin, generic.CreateView):
         kwargs = super(LessonCreateView, self).get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
+
+
+class LessonUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Lesson
+    form_class = LessonUpdateForm
+    success_url = reverse_lazy("courses:lesson-list")
+
+
+class LessonDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Lesson
+    success_url = reverse_lazy("courses:lesson-list")
 
 
 class StudentDetailView(LoginRequiredMixin, generic.DetailView):

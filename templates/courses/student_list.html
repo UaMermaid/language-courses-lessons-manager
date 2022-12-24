@@ -8,10 +8,14 @@
   <br>
   <div class="w3-row-padding">
     <div class="w3-threequarter">
-      <form action="" method="get" class="form-inline">
-        {{ search_form|crispy }}
-        <input class="btn btn-light" type="submit" value="🔎">
-      </form>
+      <div class="w3-container-padding">
+        <form action="" method="get" class="form-inline">
+          <div class="w3-container">
+            <div class="w3-threequarter">{{ search_form|crispy }}</div>
+            <input class="w3-button w3-green w3-left w3-margin-left" type="submit" value="Search">
+          </div>
+        </form>
+      </div>
     </div>
     <div class="w3-quarter">
       <a href="{% url 'courses:student-create' %}" class="w3-button w3-indigo w3-right">

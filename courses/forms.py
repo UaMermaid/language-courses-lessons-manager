@@ -65,3 +65,26 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = ["title", "language", "level", "date_time"]
+
+
+class LessonUpdateForm(forms.ModelForm):
+    date_time = forms.DateTimeField(
+        input_formats=["%d.%m.%y %H:%M"],
+        widget=forms.DateTimeInput(
+            format="%d.%m.%y %H:%M",
+            attrs={"type": "datetime", "placeholder": "DD.MM.YY HH:MM"},
+        )
+    )
+
+    class Meta:
+        model = Lesson
+        fields = ["title", "date_time"]
+
+
+class StudentSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by username..."})
+    )

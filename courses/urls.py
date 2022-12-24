@@ -2,7 +2,7 @@ from django.urls import path
 
 from courses.views import index, LanguageListView, LevelListView, StudentListView, info, LessonListView, \
     LessonDetailView, StudentDetailView, StudentCreateView, StudentDeleteView, toggle_assign_to_lesson, confirm_lesson, \
-    LanguageDetailView, LessonCreateView, LanguageCreateView, LanguageDeleteView
+    LanguageDetailView, LessonCreateView, LanguageCreateView, LanguageDeleteView, LessonDeleteView, LessonUpdateView
 
 urlpatterns = [
     path("study/", index, name="index"),
@@ -27,6 +27,8 @@ urlpatterns = [
     path("", info, name="info"),
     path("shedule/", LessonListView.as_view(), name="lesson-list"),
     path("lessons/<int:pk>/", LessonDetailView.as_view(), name="lesson-detail"),
+    path("lessons/<int:pk>/update/", LessonUpdateView.as_view(), name="lesson-update"),
+    path("lessons/<int:pk>/delete/", LessonDeleteView.as_view(), name="lesson-delete"),
     path("students/<int:pk>/", StudentDetailView.as_view(), name="student-detail"),
     path("students/create/", StudentCreateView.as_view(), name="student-create"),
     path(

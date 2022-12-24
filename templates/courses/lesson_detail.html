@@ -36,10 +36,10 @@
       Lesson isn't confirmed by teacher
       {% endif %}
       </p>
-      <a href="" class="btn btn-danger">
+      <a href="{% url 'courses:lesson-delete' pk=lesson.pk %}" class="btn btn-danger">
         Delete
       </a>
-      <a href="" class="btn btn-secondary">
+      <a href="{% url 'courses:lesson-update' pk=lesson.pk %}" class="btn btn-secondary">
         Update
       </a>
       {% if user.is_staff %}
