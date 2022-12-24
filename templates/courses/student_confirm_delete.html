@@ -8,11 +8,19 @@
       this
     {% endif %}
     page?</h1>
-
-  <form action="" method="post">
-    {% csrf_token %}
-
-    <input type="submit" value="Yes" class="w3-button w3-red">
-  </form>
-  <a href="{% url 'courses:student-detail' pk=student.pk %}"><button class="w3-button w3-indigo">No</button></a>
+  <div class="w3-content w3-padding-48" style="max-width: 40%">
+    <div class="w3-row-padding">
+      <div class="w3-half w3-container">
+        <a href="{% url 'courses:student-detail' pk=student.pk %}">
+          <button class="w3-button w3-indigo w3-left w3-block">No</button>
+        </a>
+      </div>
+      <div class="w3-half w3-container">
+        <form action="" method="post">
+          {% csrf_token %}
+            <input type="submit" value="Yes" class="w3-button w3-red w3-right">
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}

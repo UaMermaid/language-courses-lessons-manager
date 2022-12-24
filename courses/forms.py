@@ -1,5 +1,6 @@
 import datetime
 
+import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -88,3 +89,9 @@ class StudentSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(attrs={"placeholder": "Search by username..."})
     )
+
+
+class LessonFilter(django_filters.FilterSet):
+    class Meta:
+        model = Lesson
+        fields = ["language", "level"]

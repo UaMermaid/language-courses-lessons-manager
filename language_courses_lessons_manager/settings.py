@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "courses",
     "crispy_forms",
     'django_bootstrap_icons',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

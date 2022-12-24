@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from courses.forms import StudentCreationForm, LessonForm, LessonUpdateForm, StudentSearchForm
+from courses.forms import StudentCreationForm, LessonForm, LessonUpdateForm, StudentSearchForm, LessonFilter
 from courses.models import Student, Lesson, Language, Level
 
 
@@ -30,6 +30,19 @@ def index(request):
     }
 
     return render(request, "courses/index.html", context=context)
+
+
+def info(request):
+    num_students = Student.objects.count()
+    num_lessons = Lesson.objects.count()
+    num_languages = Language.objects.count()
+
+    context = {
+        "num_students": num_students,
+        "num_lessons": num_lessons,
+        "num_languages": num_languages,
+    }
+    return render(request, "courses/info.html", context=context)
 
 
 class LanguageListView(LoginRequiredMixin, generic.ListView):
@@ -79,46 +92,6 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
     template_name = "courses/level_list.html"
 
 
-class StudentListView(LoginRequiredMixin, generic.ListView):
-    model = Student
-    paginate_by = 3
-    queryset = Student.objects.all()
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(StudentListView, self).get_context_data(**kwargs)
-
-        username = self.request.GET.get("username", "")
-
-        context["search_form"] = StudentSearchForm(initial={
-            "username": username
-        })
-
-        return context
-
-    def get_queryset(self):
-        form = StudentSearchForm(self.request.GET)
-
-        if form.is_valid():
-            return self.queryset.filter(
-                username__icontains=form.cleaned_data["username"]
-            )
-
-        return self.queryset
-
-
-def info(request):
-    num_students = Student.objects.count()
-    num_lessons = Lesson.objects.count()
-    num_languages = Language.objects.count()
-
-    context = {
-        "num_students": num_students,
-        "num_lessons": num_lessons,
-        "num_languages": num_languages,
-    }
-    return render(request, "courses/info.html", context=context)
-
-
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
     paginate_by = 5
@@ -150,6 +123,37 @@ class LessonUpdateView(LoginRequiredMixin, generic.UpdateView):
 class LessonDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Lesson
     success_url = reverse_lazy("courses:lesson-list")
+
+
+class LessonLanguageListView(LoginRequiredMixin, generic.ListView):
+    model = Lesson
+
+
+class StudentListView(LoginRequiredMixin, generic.ListView):
+    model = Student
+    paginate_by = 6 # better to be multiple of 3
+    queryset = Student.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StudentListView, self).get_context_data(**kwargs)
+
+        username = self.request.GET.get("username", "")
+
+        context["search_form"] = StudentSearchForm(initial={
+            "username": username
+        })
+
+        return context
+
+    def get_queryset(self):
+        form = StudentSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return self.queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+
+        return self.queryset
 
 
 class StudentDetailView(LoginRequiredMixin, generic.DetailView):
@@ -189,4 +193,6 @@ def confirm_lesson(request, pk):
     return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
 
 
-
+def lesson_filtered_list(request):
+    f = LessonFilter(request.GET, queryset=Lesson.objects.all().select_related("level").filter(date_time__gt=datetime.datetime.now()))
+    return render(request, 'courses/lesson_filtered_list.html', {'filter': f})

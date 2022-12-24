@@ -9,8 +9,6 @@
     <a href="{% url 'courses:language-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LANGUAGES</a>
     <a href="{% url 'courses:lesson-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SCHEDULE</a>
     <a href="{% url 'courses:level-list' %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LEVELS</a>
-    <input class="w3-bar-item w3-input w3-quarter w3-border w3-black w3-padding-large" type="search" placeholder="Search lesson...">
-    <button class="w3-bar-item w3-button w3-border w3-teal w3-padding-large" type="submit">{% bs_icon 'search-heart' %} Search</button>
     {% if user.is_authenticated %}
     <button type="button" class="w3-bar-item w3-button w3-border w3-black w3-right w3-padding-large">
       <a href="{% url 'logout'%}?next={{request.path}}">{% bs_icon "box-arrow-right" %}</a>
