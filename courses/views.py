@@ -82,6 +82,12 @@ class LanguageCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("courses:language-list")
 
 
+class LanguageUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Language
+    fields = "__all__"
+    success_url = reverse_lazy("courses:language-list")
+
+
 class LanguageDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Language
     success_url = reverse_lazy("courses:language-list")

@@ -6,13 +6,15 @@
     {{ language_name }}
   </h1>
 
+  <div class="w3-content w3-center">
+    <a href="{% url 'courses:language-delete' pk=language_pk %}" class="w3-button w3-red">
+      Delete
+    </a>
+    <a href="{% url 'courses:language-update' pk=language_pk %}" class="w3-button w3-indigo">
+      Update
+    </a>
+  </div>
 
-  <a href="{% url 'courses:language-delete' pk=language_pk %}" class="w3-button w3-red">
-    Delete
-  </a>
-  <a href="" class="w3-button w3-indigo">
-    Update
-  </a>
   <br>
   <br>
   <div class="w3-content">
