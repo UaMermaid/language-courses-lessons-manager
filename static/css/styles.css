@@ -438,3 +438,26 @@ h4{
 a:link {
   text-decoration: none;
 }
+
+.calendar_list {
+  font-size: x-small;
+  overflow: hidden
+}
+
+.calendar {
+  display: table;
+  border-collapse: collapse;
+  text-align: center;
+  margin: 10px;
+}
+
+.date_cell {
+  display:table-cell;
+  background-color: dimgray;
+  width: 150px;
+  height: 100px;
+  text-align: left;
+  border: 3px solid darkgrey;
+  padding: 0;
+  vertical-align: text-top;
+}

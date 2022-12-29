@@ -1,3 +1,4 @@
+import calendar
 import datetime
 
 from django.contrib.auth.decorators import login_required
@@ -5,13 +6,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 from django.views import generic
 
 from courses.forms import StudentCreationForm, LessonForm, LessonUpdateForm, StudentSearchForm, LessonFilter
 from courses.models import Student, Lesson, Language, Level
+from courses.utils import Calendar
 
 
-@login_required
 def index(request):
     """View function for the home page of the site."""
 
@@ -42,6 +44,7 @@ def info(request):
         "num_lessons": num_lessons,
         "num_languages": num_languages,
     }
+
     return render(request, "courses/info.html", context=context)
 
 
@@ -202,3 +205,42 @@ def confirm_lesson(request, pk):
 def lesson_filtered_list(request):
     f = LessonFilter(request.GET, queryset=Lesson.objects.all().select_related("level").filter(date_time__gt=datetime.datetime.now()))
     return render(request, 'courses/lesson_filtered_list.html', {'filter': f})
+
+
+class CalendarView(LoginRequiredMixin, generic.ListView):
+    model = Lesson
+    template_name = 'courses/calendar.html'
+    success_url = reverse_lazy('courses/calendar.html')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get('month', None))
+        cal = Calendar(d.year, d.month)
+        html_cal = cal.formatmonth()
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+
+        return context
+
+
+def get_date(req_month):
+    if req_month:
+        year, month = (int(x) for x in req_month.split('-'))
+        return datetime.date(year, month, day=1)
+    return datetime.datetime.today()
+
+
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - datetime.timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+
+def next_month(d):
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + datetime.timedelta(days=1)
+    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    return month

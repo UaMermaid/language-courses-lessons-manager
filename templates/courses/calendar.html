@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="w3-content">
+    <br>
+    <br>
+    <div class="w3-container">
+      <a class="w3-button w3-indigo w3-left" href="{% url 'courses:calendar' %}?{{ prev_month }}">
+        Previous Month
+      </a>
+      <div class="w3-center">
+        <a class="w3-button w3-black w3-border w3-border-indigo" href="{% url 'courses:lesson-list' %}">
+          Lessons List
+        </a>
+        <a class="w3-button w3-black w3-border w3-border-yellow" href="{% url 'courses:lesson-filtered-list' %}">
+          Filter Lessons
+        </a>
+        <a class="w3-button w3-indigo w3-right" href="{% url 'courses:calendar' %}?{{ next_month }}">
+          Next Month
+        </a>
+      </div>
+    </div>
+    {{ calendar }}
+  </div>
+
+{% endblock %}

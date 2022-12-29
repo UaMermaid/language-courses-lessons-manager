@@ -67,3 +67,8 @@ class Lesson(models.Model):
     def __str__(self):
         return f"{datetime.datetime.strftime(self.date_time, '%d.%m.%y %H:%M')} " \
                f"{self.title} ({self.language}, {self.level})"
+
+    @property
+    def get_html_url(self):
+        url = reverse('courses:lesson-detail', args=(self.id,))
+        return f'<a href="{url}">{datetime.datetime.strftime(self.date_time, "%H:%M")} {self.title} ({self.language})</a>'

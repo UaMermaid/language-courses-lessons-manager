@@ -2,7 +2,7 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1 class="hero" style="height: 300px;">
+  <h1 class="hero" style="height: 300px; text-align: center">
     OUR BEST TEAM
   </h1>
   <br>
@@ -37,7 +37,7 @@
         </div>
       {% else %}
         <div class="w3-col s4 w3-margin-bottom">
-          <div class="w3-card w3-teal w3-xlarge w3-hover-blue-gray w3-opacity-min" style="text-align: center; min-height: 200px">
+          <div class="w3-card w3-indigo w3-xlarge w3-hover-teal w3-opacity-min" style="text-align: center; min-height: 200px">
             <br>
             <a class="w3-text-white" href="{% url 'courses:student-detail' pk=student.pk %}">
               <p>{{ student.first_name }}</p><p>{{ student.last_name }}</p></a>

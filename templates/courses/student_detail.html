@@ -3,44 +3,42 @@
 
 {% block content %}
   <h1 class="hero" style="height: 300px; text-align: center">
-    {{ student }}
-  </h1>
-  <h2 class="w3-center">{{ student.username }},
-  {% if user.is_staff %}
-    phone number: {{ student.phone_number }}
-  {% endif %}
-  </h2>
-  {% if student.is_staff %}
-    Teaches:{{ student.student_language.name }}
-  {% else %}
-    <p>Study: {{ student.student_language.name }} ({{ student.student_level }})</p>
-  {% endif %}
-  {% if student.username == user.username %}
-    <a href="{% url 'courses:student-delete' pk=student.pk %}" class="btn btn-danger">
-      Delete
+    <p>{{ student }}</p>
+    {% if student.username == user.username or user.is_staff %}
+    <a class="w3-button w3-border w3-xxlarge" href="{% url 'courses:student-create' %}">
+      UPDATE
     </a>
-    <a href="" class="btn btn-secondary">
-      Update
+    <a class="w3-button w3-border w3-xxlarge" href="{% url 'courses:student-delete' pk=student.pk %}">
+      DELETE
     </a>
-  {% endif %}
-  {% if student.username != user.username and user.is_staff %}
-    <a href="{% url 'courses:student-delete' pk=student.pk %}" class="btn btn-danger">
-      Delete
-    </a>
-  {% endif %}
-
-  <br>
-  <br>
-  <h3>Lessons:
-    {% if student.lessons.all %}
-      <ul>
-      {% for lesson in student.lessons.all %}
-        <li>{{ lesson }}</li>
-      {% endfor %}
-      </ul>
-    {% else %}
-        There are no actual lessons yet
     {% endif %}
-  </h3>
+  </h1>
+  <div class="w3-container w3-center w3-xlarge w3-indigo w3-opacity-min">
+    username: {{ student.username }}
+    {% if user.is_staff or student.is_staff %}
+      (phone number: +{{ student.phone_number }})
+    {% endif %}
+  </div>
+  <br>
+  <div class="w3-content w3-xlarge">
+    {% if student.is_staff %}
+      Teaches:{{ student.student_language.name }}
+    {% else %}
+      <p>Study {{ student.student_language.name }} ({{ student.student_level }})
+        from {{ student.date_joined|date:"F Y" }}</p>
+    {% endif %}
+    <div class="w3-container w3-border w3-border-blue">
+      <p>Lessons:</p>
+      {% if student.lessons.all %}
+        <ul>
+        {% for lesson in student.lessons.all %}
+          <li>{{ lesson }}</li>
+        {% endfor %}
+        </ul>
+      {% else %}
+          There are no actual lessons yet
+      {% endif %}
+    </div>
+  </div>
 
 {% endblock %}
