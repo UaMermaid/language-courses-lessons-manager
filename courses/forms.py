@@ -1,11 +1,7 @@
-import datetime
-
 import django_filters
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import RegexValidator
-from django.http import request
 
 from courses.models import Student, Language, Level, Lesson
 
@@ -29,10 +25,16 @@ class StudentCreationForm(UserCreationForm):
         )
 
 
-class StudentPhoneUpdateForm(forms.ModelForm):
+class StudentUpdateForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ["phone_number"]
+        fields = [
+            "first_name",
+            "last_name",
+            "phone_number",
+            "student_language",
+            "student_level"
+        ]
 
     phone_number = forms.CharField(
         required=True,
@@ -46,7 +48,8 @@ class StudentPhoneUpdateForm(forms.ModelForm):
 class LessonForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        """ Grants access to the request object so that only language of the current user
+        """ Grants access to the request object so that
+        only language of the current user
         """
 
         self.request = kwargs.pop('request')
@@ -54,7 +57,10 @@ class LessonForm(forms.ModelForm):
         self.fields["language"].queryset = Language.objects.filter(
             name=self.request.user.student_language)
 
-    level = forms.ModelChoiceField(queryset=Level.objects.all(), widget=forms.Select)
+    level = forms.ModelChoiceField(
+        queryset=Level.objects.all(),
+        widget=forms.Select
+    )
     date_time = forms.DateTimeField(
         input_formats=["%d.%m.%y %H:%M"],
         widget=forms.DateTimeInput(

@@ -40,6 +40,7 @@ class Student(AbstractUser):
     )
 
     class Meta:
+        ordering = ["first_name"]
         verbose_name = "student"
         verbose_name_plural = "students"
 
@@ -65,10 +66,12 @@ class Lesson(models.Model):
         ordering = ["date_time"]
 
     def __str__(self):
-        return f"{datetime.datetime.strftime(self.date_time, '%d.%m.%y %H:%M')} " \
-               f"{self.title} ({self.language}, {self.level})"
+        date = datetime.datetime.strftime(self.date_time, '%d.%m.%y %H:%M')
+        return f"{date} {self.title} ({self.language}, {self.level})"
 
     @property
     def get_html_url(self):
-        url = reverse('courses:lesson-detail', args=(self.id,))
-        return f'<a href="{url}">{datetime.datetime.strftime(self.date_time, "%H:%M")} {self.title} ({self.language})</a>'
+        url = reverse("courses:lesson-detail", args=(self.id,))
+        return f"<a href='{url}'>" \
+               f"{datetime.datetime.strftime(self.date_time, '%H:%M')} " \
+               f"{self.title} ({self.language})</a>"

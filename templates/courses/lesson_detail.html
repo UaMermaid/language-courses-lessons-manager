@@ -2,15 +2,17 @@
 {% load bootstrap_icons %}
 
 {% block content %}
-  <h1 class="hero" style="max-height: 300px; text-align: center; padding: 20px">
+  <h1 class="hero" style="max-height: 300px; text-align: center; padding: 20px; opacity: 80%">
     <p>{{ lesson.title }}</p>
     <p>{{ lesson.date_time|date:"d.m.Y" }} {{ lesson.date_time|time:"H:i" }} </p>
   </h1>
-  <div class="w3-cell-row w3-center">
-    <div class="w3-container w3-black w3-cell">
-      <p>{{ lesson.language.name }}({{ lesson.level.level }})</p>
+  <br>
+  <div class="w3-cell-row w3-xlarge">
+    <div class="w3-container w3-black w3-cell w3-rightbar w3-border-yellow">
+      <p>{{ lesson.language.name }} ({{ lesson.level.level }})</p>
     </div>
-    <div class="w3-container w3-black w3-cell w3-cell-middle">
+    <div class="w3-container w3-black w3-cell" style="min-width: 550px;">
+      <p>Students:</p>
       <ul>
       {% for student in lesson.students.all %}
         <li>{% bs_icon "emoji-smile" %} {{ student.first_name }} {{ student.last_name }}</li>
@@ -18,17 +20,17 @@
       </ul>
       {% if lesson.language == user.student_language %}
         {% if lesson in user.lessons.all %}
-        <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="btn btn-danger link-to-page">
+        <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="w3-button">
           Delete me from this lesson
         </a>
         {% else %}
-        <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="btn btn-success link-to-page">
+        <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="w3-button">
           Assign me to this lesson
         </a>
         {% endif %}
       {% endif %}
     </div>
-    <div class="w3-container w3-black w3-cell w3-cell-middle">
+    <div class="w3-container w3-black w3-cell">
       <p>
       {% if lesson.is_approved %}
       Lesson is confirmed by teacher
@@ -36,21 +38,23 @@
       Lesson isn't confirmed by teacher
       {% endif %}
       </p>
-      <a href="{% url 'courses:lesson-delete' pk=lesson.pk %}" class="btn btn-danger">
+      <a href="{% url 'courses:lesson-delete' pk=lesson.pk %}" class="w3-button w3-red">
         Delete
       </a>
-      <a href="{% url 'courses:lesson-update' pk=lesson.pk %}" class="btn btn-secondary">
+      <a href="{% url 'courses:lesson-update' pk=lesson.pk %}" class="w3-button w3-indigo">
         Update
       </a>
       {% if user.is_staff %}
-      <a href="{% url 'courses:confirm-lesson' pk=lesson.pk %}" class="btn btn-secondary">
-        Confirm
-      </a>
+        {% if lesson.is_approved %}
+        <a href="{% url 'courses:confirm-lesson' pk=lesson.pk %}" class="w3-button w3-dark-gray">
+          Disprove
+        </a>
+        {% else %}
+        <a href="{% url 'courses:confirm-lesson' pk=lesson.pk %}" class="w3-button w3-green">
+          Confirm
+        </a>
+        {% endif %}
       {% endif %}
     </div>
   </div>
-
-
-  <hr>
-
 {% endblock %}

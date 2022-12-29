@@ -9,7 +9,14 @@ from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
 from django.views import generic
 
-from courses.forms import StudentCreationForm, LessonForm, LessonUpdateForm, StudentSearchForm, LessonFilter
+from courses.forms import (
+    StudentCreationForm,
+    LessonForm,
+    LessonUpdateForm,
+    StudentSearchForm,
+    LessonFilter,
+    StudentUpdateForm
+)
 from courses.models import Student, Lesson, Language, Level
 from courses.utils import Calendar
 
@@ -104,10 +111,12 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
     paginate_by = 5
-    queryset = Lesson.objects.all().select_related("level").filter(date_time__gt=datetime.datetime.now())
+    queryset = Lesson.objects.all().select_related("level").filter(
+        date_time__gt=datetime.datetime.now()
+    )
 
 
-class LessonDetailView(LoginRequiredMixin,generic.DetailView):
+class LessonDetailView(LoginRequiredMixin, generic.DetailView):
     model = Lesson
 
 
@@ -140,7 +149,7 @@ class LessonLanguageListView(LoginRequiredMixin, generic.ListView):
 
 class StudentListView(LoginRequiredMixin, generic.ListView):
     model = Student
-    paginate_by = 6 # better to be multiple of 3
+    paginate_by = 6  # better to be multiple of 3
     queryset = Student.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -180,6 +189,12 @@ class StudentDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("courses:student-list")
 
 
+class StudentUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Student
+    form_class = StudentUpdateForm
+    success_url = reverse_lazy("courses:student-list")
+
+
 @login_required
 def toggle_assign_to_lesson(request, pk):
     student = Student.objects.get(id=request.user.id)
@@ -189,7 +204,9 @@ def toggle_assign_to_lesson(request, pk):
         student.lessons.remove(pk)
     else:
         student.lessons.add(pk)
-    return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
+    return HttpResponseRedirect(
+        reverse_lazy("courses:lesson-detail", args=[pk])
+    )
 
 
 def confirm_lesson(request, pk):
@@ -199,27 +216,37 @@ def confirm_lesson(request, pk):
     else:
         lesson.is_approved = False
     lesson.save()
-    return HttpResponseRedirect(reverse_lazy("courses:lesson-detail", args=[pk]))
+    return HttpResponseRedirect(
+        reverse_lazy("courses:lesson-detail", args=[pk])
+    )
 
 
 def lesson_filtered_list(request):
-    f = LessonFilter(request.GET, queryset=Lesson.objects.all().select_related("level").filter(date_time__gt=datetime.datetime.now()))
-    return render(request, 'courses/lesson_filtered_list.html', {'filter': f})
+    f = LessonFilter(
+        request.GET,
+        queryset=Lesson.objects.all().select_related("level").filter(
+            date_time__gt=datetime.datetime.now()
+        )
+    )
+    return render(request, "courses/lesson_filtered_list.html", {"filter": f})
 
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
     model = Lesson
-    template_name = 'courses/calendar.html'
-    success_url = reverse_lazy('courses/calendar.html')
+    template_name = "courses/calendar.html"
+    success_url = reverse_lazy("courses/calendar.html")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        d = get_date(self.request.GET.get('month', None))
+        d = get_date(self.request.GET.get("month", None))
         cal = Calendar(d.year, d.month)
         html_cal = cal.formatmonth()
-        context['calendar'] = mark_safe(html_cal)
-        context['prev_month'] = prev_month(d)
-        context['next_month'] = next_month(d)
+
+        context = {
+            "calendar": mark_safe(html_cal),
+            "prev_month": prev_month(d),
+            "next_month": next_month(d),
+        }
 
         return context
 
@@ -233,14 +260,14 @@ def get_date(req_month):
 
 def prev_month(d):
     first = d.replace(day=1)
-    prev_month = first - datetime.timedelta(days=1)
-    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    month_prev = first - datetime.timedelta(days=1)
+    month = 'month=' + str(month_prev.year) + '-' + str(month_prev.month)
     return month
 
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
     last = d.replace(day=days_in_month)
-    next_month = last + datetime.timedelta(days=1)
-    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    month_next = last + datetime.timedelta(days=1)
+    month = 'month=' + str(month_next.year) + '-' + str(month_next.month)
     return month

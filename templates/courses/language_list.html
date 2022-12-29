@@ -1,26 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="hero" style="height: 300px; text-align: center">
+  <h1 class="hero" style="height: 300px; text-align: center ; opacity: 80%">
     Chose language
   </h1>
-
+  <div class="w3-content">
   {% if language_list %}
-    <div class="w3-row">
-      <div class="w3-content" style="max-width: 450px">
-        <ul class="w3-ul w3-large w3-border w3-center">
-          {% for language in language_list %}
-          <li><a href="{% url 'courses:language-detail' pk=language.pk %}"> {{ language.name }}</a></li>
-          {% endfor %}
-          {% if user.is_staff %}
-            <a href="{% url 'courses:language-create' %}" class="w3-button w3-indigo">
-            + Add language
-          </a>
-          {% endif %}
-        </ul>
+    <div class="w3-row-padding w3-large">
+      {% for language in language_list %}
+      <div class="w3-card w3-quarter w3-center w3-border" style="min-height: 90px;">
+        <br>
+        <a href="{% url 'courses:language-detail' pk=language.pk %}">
+          {{ language.name }}
+        </a>
       </div>
+      {% endfor %}
     </div>
+    <br>
+      {% if user.is_staff %}
+      <div class="w3-content w3-center w3-large">
+        <a href="{% url 'courses:language-create' %}" class="w3-button w3-indigo">
+        + Add language
+        </a>
+      </div>
+      {% endif %}
   {% else %}
-      <p>There are no languages.</p>
+    <p>There are no languages.</p>
   {% endif %}
+  </div>
 {% endblock %}

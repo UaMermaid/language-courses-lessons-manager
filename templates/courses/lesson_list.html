@@ -2,7 +2,7 @@
 {% load bootstrap_icons %}
 
 {% block content %}
-  <h1 class="hero" style="height: 300px; text-align: center">Schedule</h1>
+  <h1 class="hero" style="height: 300px; text-align: center; opacity: 80%">Schedule</h1>
   <div class="w3-container w3-center w3-cell-middle">
     <a href="{% url 'courses:lesson-create' %}" class="w3-button w3-large">
      CREATE NEW LESSON
@@ -15,7 +15,7 @@
     </a>
   </div>
   <div class="w3-container w3-center w3-margin">
-{% if lesson_list %}
+  {% if lesson_list %}
   <table class="w3-table w3-large w3-dark-gray">
     <tr class="w3-center w3-indigo">
       <th>LESSON INFORMATION</th>

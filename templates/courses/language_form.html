@@ -2,15 +2,17 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>{{ object|yesno:"Update,Create" }} language</h1>
+  <h1 class="hero" style="height: 300px; text-align: center; opacity: 80%">
+    {{ object|yesno:"Update,Create" }} language
+  </h1>
   <div class="w3-content" style="max-width:800px; margin-top: -50px">
+    <br>
+    <br>
     <form action="" method="post" novalidate>
       {% csrf_token %}
       {{ form|crispy }}
       <p></p>
       <input type="submit" value="Submit" class="w3-button w3-indigo">
     </form>
-    <br>
-    <br>
   </div>
 {% endblock %}
