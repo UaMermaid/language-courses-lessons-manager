@@ -29,8 +29,6 @@ class StudentUpdateForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = [
-            "first_name",
-            "last_name",
             "phone_number",
             "student_language",
             "student_level"
@@ -52,7 +50,7 @@ class LessonForm(forms.ModelForm):
         only language of the current user
         """
 
-        self.request = kwargs.pop('request')
+        self.request = kwargs.pop("request")
         super(LessonForm, self).__init__(*args, **kwargs)
         self.fields["language"].queryset = Language.objects.filter(
             name=self.request.user.student_language)

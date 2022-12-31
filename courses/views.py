@@ -176,7 +176,7 @@ class StudentListView(LoginRequiredMixin, generic.ListView):
 
 class StudentDetailView(LoginRequiredMixin, generic.DetailView):
     model = Student
-    queryset = Student.objects.all().prefetch_related("lessons__level")
+    queryset = Student.objects.all().prefetch_related("lessons__language")
 
 
 class StudentCreateView(generic.CreateView):
