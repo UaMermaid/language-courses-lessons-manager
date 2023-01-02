@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from courses.forms import StudentCreationForm, LessonForm
+from courses.forms import StudentCreationForm
 from courses.models import Language, Level
 
 
@@ -62,4 +62,3 @@ class SearchFormsTest(TestCase):
         )
 
         self.assertContains(res, search_data["username"])
-

@@ -33,7 +33,9 @@ class Calendar(HTMLCalendar):
         return f"<tr> {week} </tr>"
 
     def formatmonth(self):
-        lessons = Lesson.objects.select_related("language").select_related("level").filter(
+        lessons = Lesson.objects.select_related(
+            "language"
+        ).select_related("level").filter(
             date_time__year=self.year,
             date_time__month=self.month
         )

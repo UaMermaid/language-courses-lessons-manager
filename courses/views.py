@@ -111,7 +111,9 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
     paginate_by = 5
-    queryset = Lesson.objects.all().select_related("language").select_related("level").filter(
+    queryset = Lesson.objects.all().select_related(
+        "language"
+    ).select_related("level").filter(
         date_time__gt=datetime.datetime.now()
     )
 
@@ -224,7 +226,9 @@ def confirm_lesson(request, pk):
 def lesson_filtered_list(request):
     f = LessonFilter(
         request.GET,
-        queryset=Lesson.objects.all().select_related("language").select_related("level").filter(
+        queryset=Lesson.objects.all().select_related(
+            "language"
+        ).select_related("level").filter(
             date_time__gt=datetime.datetime.now()
         )
     )
