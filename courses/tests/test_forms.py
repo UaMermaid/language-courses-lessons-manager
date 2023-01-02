@@ -24,26 +24,23 @@ class FormsTests(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data, form_data)
 
-#    def test_lesson_creation_form(self):
-#        language = Language.objects.create(name="EN")
-#        level = Level.objects.create(level="A1", description="a")
-#        date_time = timezone.now()
-#        student = get_user_model().objects.create_user(
-#            username="test_student",
-#            password="test1234Test",
-#            phone_number="+380001112233",
-#            student_language=language,
-#            student_level=level
-#        )
-#        form_data = {
-#            "title": "Test title",
-#            "language": student.student_language,
-#            "level": level,
-#            "date_time": date_time,
-#        }
-#        form = LessonForm(data=form_data)
-#        self.assertTrue(form.is_valid())
-#        self.assertEqual(form.cleaned_data, form_data)
+    def test_lesson_creation_form(self):
+        language = Language.objects.create(name="EN")
+        level = Level.objects.create(level="A1", description="a")
+        student = get_user_model().objects.create_user(
+            username="test_student",
+            phone_number="+380001112233",
+            student_language=language,
+            student_level=level
+        )
+        form_data = {
+            "title": "Test title",
+            "language": student.student_language,
+            "level": level,
+        }
+        form = LessonForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data, form_data)
 
 
 class SearchFormsTest(TestCase):

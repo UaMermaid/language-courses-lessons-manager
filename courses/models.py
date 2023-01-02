@@ -57,7 +57,7 @@ class Lesson(models.Model):
     level = models.ForeignKey(to=Level, on_delete=models.CASCADE)
     date_time = models.DateTimeField(
         datetime.datetime,
-        default=datetime.datetime.now()
+        default=datetime.datetime.now() + datetime.timedelta(days=1)
     )
     is_approved = models.BooleanField(default=False)
     students = models.ManyToManyField(to=Student, related_name="lessons")

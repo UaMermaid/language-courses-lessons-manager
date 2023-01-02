@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from courses.views import (
     index,
@@ -26,6 +26,7 @@ from courses.views import (
 )
 
 urlpatterns = [
+    path('__debug__/', include('debug_toolbar.urls')),
     path("study/", index, name="index"),
     path(
         "languages/",

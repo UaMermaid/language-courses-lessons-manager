@@ -111,7 +111,7 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
     paginate_by = 5
-    queryset = Lesson.objects.all().select_related("level").filter(
+    queryset = Lesson.objects.all().select_related("language").select_related("level").filter(
         date_time__gt=datetime.datetime.now()
     )
 
@@ -224,7 +224,7 @@ def confirm_lesson(request, pk):
 def lesson_filtered_list(request):
     f = LessonFilter(
         request.GET,
-        queryset=Lesson.objects.all().select_related("level").filter(
+        queryset=Lesson.objects.all().select_related("language").select_related("level").filter(
             date_time__gt=datetime.datetime.now()
         )
     )
@@ -233,6 +233,7 @@ def lesson_filtered_list(request):
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
     model = Lesson
+
     template_name = "courses/calendar.html"
     success_url = reverse_lazy("courses/calendar.html")
 

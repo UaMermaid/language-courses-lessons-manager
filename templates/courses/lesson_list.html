@@ -19,7 +19,6 @@
   <table class="w3-table w3-large w3-dark-gray">
     <tr class="w3-center w3-indigo">
       <th>LESSON INFORMATION</th>
-      <th class="w3-center">NUMBER OF STUDENTS</th>
       <th class="w3-center">JOIN</th>
       <th class="w3-center">CONFIRMED</th>
     </tr>
@@ -28,9 +27,6 @@
       <tr class="w3-text-light-grey w3-hover-blue-gray">
         <td class="w3-cell-middle">
             <a class="w3-text-white" href="{% url 'courses:lesson-detail' pk=lesson.pk %}">{{ lesson }}</a>
-        </td>
-        <td class="w3-center w3-cell-middle">
-            {{ lesson.students.count }}
         </td>
         <td class="w3-center">
         {% if lesson.language == user.student_language%}
