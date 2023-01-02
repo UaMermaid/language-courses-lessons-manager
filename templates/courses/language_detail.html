@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <h1 class="hero" style="height: 300px; text-align: center; opacity: 80%">
+    <p>{{ language_name }} language</p>
+    <a class="w3-button w3-border w3-xxlarge" href="{% url 'courses:language-update' pk=language_pk %}">
+      UPDATE
+    </a>
+    <a class="w3-button w3-border w3-xxlarge" href="{% url 'courses:language-delete' pk=language_pk %}">
+      DELETE
+    </a>
+  </h1>
+  <br>
+  <br>
+  <div class="w3-content w3-large">
+    {% if num_lessons == 0 %}
+    <p>Currently we haven't lessons of {{ language_name }} language.
+    </p>
+    {% else %}
+    <p>Currently we have {{ num_lessons }} lesson{{ num_lessons|pluralize }}
+      of {{ language_name }} language.
+    </p>
+    <p>
+      This language study {{ num_students }} student{{ num_students|pluralize }}.
+    </p>
+    {% endif %}
+    <ul class="w3-ul w3-hoverable">
+    {% for lesson in language_lessons_list %}
+      <li class="w3-dark-gray w3-hover-blue-gray">
+        <a href="{% url 'courses:lesson-detail' pk=lesson.id %}">
+          <p class="w3-wight">{{ lesson.date_time|date:"d.m.Y" }} {{ lesson.date_time|time:"H:i" }} - {{ lesson.title }}</p>
+        </a>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

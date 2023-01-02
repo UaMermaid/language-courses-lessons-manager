@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <h1 class="hero" style="height: 300px; text-align: center; opacity: 80%">Schedule</h1>
+  <div class="w3-container w3-center w3-cell-middle">
+    <a href="{% url 'courses:lesson-create' %}" class="w3-button w3-large">
+     CREATE NEW LESSON
+    </a>
+    <a href="{% url 'courses:calendar' %}" class="w3-button w3-large">
+     CALENDAR
+    </a>
+    <a href="{% url 'courses:lesson-filtered-list' %}" class="w3-button w3-large">
+     FILTER LESSONS
+    </a>
+  </div>
+  <div class="w3-container w3-center w3-margin">
+  {% if lesson_list %}
+  <table class="w3-table w3-large w3-dark-gray">
+    <tr class="w3-center w3-indigo">
+      <th>LESSON INFORMATION</th>
+      <th class="w3-center">JOIN</th>
+      <th class="w3-center">CONFIRMED</th>
+    </tr>
+
+    {% for lesson in lesson_list %}
+      <tr class="w3-text-light-grey w3-hover-blue-gray">
+        <td class="w3-cell-middle">
+            <a class="w3-text-white" href="{% url 'courses:lesson-detail' pk=lesson.pk %}">{{ lesson }}</a>
+        </td>
+        <td class="w3-center">
+        {% if lesson.language == user.student_language%}
+          {% if lesson in user.lessons.all %}
+            <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}">
+              <button class="w3-button w3-border w3-dark-gray">{% bs_icon "dash" %}</button>
+            </a>
+          {% else %}
+            <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}">
+              <button class="w3-button w3-border w3-dark-gray">+</button>
+            </a>
+          {% endif %}
+        {% else %}
+          <button class="w3-button w3-border w3-dark-gray">{% bs_icon "x-circle-fill" %}</button>
+        {% endif %}
+        </td>
+        <td class="w3-center">
+          {% if lesson.is_approved %}
+            <a><button class="w3-button w3-border w3-green">{% bs_icon "check-circle" %}</button></a>
+          {% else %}
+            <a><button class="w3-button w3-border w3-dark-gray">{% bs_icon "hourglass-split" %}</button></a>
+          {% endif %}
+        </td>
+    {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no levels.</p>
+  {% endif %}
+  </div>
+{% endblock %}

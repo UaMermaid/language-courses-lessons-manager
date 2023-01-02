@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="hero" style="max-height: 300px; text-align: center; padding: 20px; opacity: 80%">
+    Search the best lessons...
+    <p></p>
+    <form method="get" class="w3-container w3-center" style="font-size: x-large">
+        {{ filter.form.as_p }}
+      <div class="w3-content">
+        <input class="w3-button w3-dark-gray w3-opacity w3-border" type="submit" value="OK">
+      </div>
+    </form>
+  </h1>
+  <div class="w3-content" style="max-width: 80%">
+    <div class="w3-content w3-margin-left w3-large">
+      {% for lesson in filter.qs %}
+        <p>
+          <a href="{% url 'courses:lesson-detail' pk=lesson.pk %}" class="w3-text-white">
+            {{ lesson.date_time|date:"d.m.Y" }} {{ lesson.date_time|time:"H:i" }}
+            {{ lesson.title }}
+            {% if lesson.is_approved %}
+              (Confirmed)
+            {% endif %}
+          </a>
+            {% if lesson.language == user.student_language %}
+              {% if lesson in user.lessons.all %}
+              <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="w3-right w3-hover-text-red">
+                - Delete me
+              </a>
+              {% else %}
+              <a href="{% url 'courses:toggle-lesson-assign' pk=lesson.pk %}" class="w3-right w3-hover-text-green">
+                + Add me
+              </a>
+              {% endif %}
+            {% endif %}
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

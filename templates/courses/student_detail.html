@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <h1 class="hero" style="height: 300px; text-align: center; opacity: 80%">
+    <p>{{ student }}</p>
+    {% if student.username == user.username or user.is_staff %}
+    <a class="w3-button w3-border w3-xxlarge" href="{% url 'courses:student-update' pk=student.pk %}">
+      UPDATE
+    </a>
+    <a class="w3-button w3-border w3-xxlarge" href="{% url 'courses:student-delete' pk=student.pk %}">
+      DELETE
+    </a>
+    {% endif %}
+  </h1>
+  <div class="w3-container w3-center w3-xlarge w3-indigo w3-opacity-min">
+    username: {{ student.username }}
+    {% if user.is_staff or student.is_staff %}
+      (phone number: {{ student.phone_number }})
+    {% endif %}
+  </div>
+  <br>
+  <div class="w3-content w3-xlarge">
+    {% if student.is_staff %}
+      Teaches:{{ student.student_language.name }}
+    {% else %}
+      <p>Study {{ student.student_language.name }} ({{ student.student_level }})
+        from {{ student.date_joined|date:"F Y" }}</p>
+    {% endif %}
+    <div class="w3-container w3-border w3-border-blue">
+      <p>Lessons:</p>
+      {% if student.lessons.all %}
+        <ul>
+        {% for lesson in student.lessons.all %}
+          <li>{{ lesson }}</li>
+        {% endfor %}
+        </ul>
+      {% else %}
+          There are no actual lessons yet
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
