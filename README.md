@@ -39,5 +39,4 @@ python manage.py runserver
 
 ## Demo
 ![Website study homepage](study_home_page.png)
-
 ![Website lessons calendar](lessons_calendar.png)
