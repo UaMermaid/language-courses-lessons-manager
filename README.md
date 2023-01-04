@@ -1,8 +1,14 @@
 # Language Courses Lessons Manager
-> Bla
+> 
+> It is a website for language school. 
+> It consists of two parts. 
+> First part ("info") is a page like a business card with school general information 
+> and with the ability to connect a contact form. 
+> Second part ("study") is a part for students and teachers. 
+> Every user can manage lessons and languages, 
+> teacher can confirm lesson. 
+> All lessons are shown on month calendar.
 
-A brief description of your project, what it is used for and how does life get
-awesome when someone starts to use it.
 
 ## Check it out!
 
@@ -21,26 +27,17 @@ python manage.py runserver
 ```
 
 
-### Initial Configuration
 
-Some projects require initial configuration (e.g. access tokens or keys, `npm i`).
-This is the section where you would document those requirements.
-
-## Developing
-
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
-```shell
-git clone https://github.com/your/awesome-project.git
-cd awesome-project/
-packagemanager install
-```
 
 ## Features
 
 * Authentication functionality for Student/User
 * Managing lessons, languages from website
-* View lessons on calendar
-* Powerful admin panel for advanced managing
+* View lessons as list and on month calendar
+* Filter lessons by language and level
+* Admin panel for advanced managing
 
+## Demo
+![Website study homepage](study_home_page.png)
+
+![Website lessons calendar](lessons_calendar.png)
