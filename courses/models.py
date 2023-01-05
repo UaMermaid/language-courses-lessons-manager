@@ -16,7 +16,10 @@ class Language(models.Model):
 
     @classmethod
     def get_default_pk(cls):
-        language, created = cls.objects.get_or_create(name="English",)
+        language, created = cls.objects.get_or_create(
+            name="English",
+            defaults={"name": "English"}
+        )
         return language.pk
 
 
@@ -32,7 +35,10 @@ class Level(models.Model):
 
     @classmethod
     def get_default_pk(cls):
-        level, created = cls.objects.get_or_create(level="A0",)
+        level, created = cls.objects.get_or_create(
+            level="A0",
+            defaults={"level": "A0"}
+        )
         return level.pk
 
 
