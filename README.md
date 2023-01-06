@@ -12,7 +12,7 @@
 
 ## Check it out!
 
-This project deployed to render.com
+This project deployed to https://language-courses.onrender.com/
 
 ## Installing 
 
