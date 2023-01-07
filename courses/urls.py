@@ -26,7 +26,6 @@ from courses.views import (
 )
 
 urlpatterns = [
-    path('__debug__/', include('debug_toolbar.urls')),
     path("study/", index, name="index"),
     path(
         "languages/",
