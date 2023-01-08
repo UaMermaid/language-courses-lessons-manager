@@ -108,6 +108,23 @@ class LevelListView(LoginRequiredMixin, generic.ListView):
     template_name = "courses/level_list.html"
 
 
+class LevelCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Level
+    fields = "__all__"
+    success_url = reverse_lazy("courses:level-list")
+
+
+class LevelUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Level
+    fields = "__all__"
+    success_url = reverse_lazy("courses:level-list")
+
+
+class LevelDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Level
+    success_url = reverse_lazy("courses:level-list")
+
+
 class LessonListView(LoginRequiredMixin, generic.ListView):
     model = Lesson
     paginate_by = 5
