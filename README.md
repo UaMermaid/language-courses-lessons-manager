@@ -12,7 +12,14 @@
 
 ## Check it out!
 
-This project deployed to https://language-courses.onrender.com/
+This project deployed to [Render](https://language-courses.onrender.com/).<br>
+Visitors can use the functionality of the site 
+if they create a new user or use test user:
+~~~ 
+login: user
+password: user12345
+~~~
+
 
 ## Installing 
 
