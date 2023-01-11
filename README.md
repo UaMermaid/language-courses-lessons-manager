@@ -17,7 +17,7 @@ Visitors can use the functionality of the site
 if they create a new user or use test user:
 ~~~ 
 login: user
-password: user12345
+password: user1234
 ~~~
 
 
