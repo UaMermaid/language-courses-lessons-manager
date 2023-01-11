@@ -168,7 +168,7 @@ class LessonLanguageListView(LoginRequiredMixin, generic.ListView):
 
 class StudentListView(LoginRequiredMixin, generic.ListView):
     model = Student
-    paginate_by = 6  # better to be multiple of 3
+    paginate_by = 6
     queryset = Student.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
