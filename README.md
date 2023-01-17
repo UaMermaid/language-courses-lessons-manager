@@ -9,7 +9,6 @@
 > teacher can confirm lesson. 
 > All lessons are shown on month calendar.
 
-
 ## Check it out!
 
 This project deployed to [Render](https://language-courses.onrender.com/).<br>
@@ -20,7 +19,6 @@ login: user
 password: user1234
 ~~~
 
-
 ## Installing 
 
 Pyton3 must be already installed
@@ -30,11 +28,10 @@ git clone https://github.com/UaMermaid/language-courses-lessons-manager
 cd language-courses-lessons-manager
 python3 -m venv venv
 pip install -r requirements.txt
+set DJANGO_SECRET_KEY="your_secret_key"
+python manage.py migrate
 python manage.py runserver
 ```
-
-
-
 
 ## Features
 
