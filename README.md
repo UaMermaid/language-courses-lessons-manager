@@ -30,10 +30,10 @@ git clone https://github.com/UaMermaid/language-courses-lessons-manager
 cd language-courses-lessons-manager
 python3 -m venv venv
 pip install -r requirements.txt
+set DJANGO_SECRET_KEY="your_secret_key"
+python manage.py migrate
 python manage.py runserver
 ```
-
-
 
 
 ## Features
