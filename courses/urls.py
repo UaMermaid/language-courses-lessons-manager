@@ -22,11 +22,10 @@ from courses.views import (
     lesson_filtered_list,
     LanguageUpdateView,
     CalendarView,
-    StudentUpdateView
+    StudentUpdateView, LevelCreateView, LevelUpdateView, LevelDeleteView
 )
 
 urlpatterns = [
-    path('__debug__/', include('debug_toolbar.urls')),
     path("study/", index, name="index"),
     path(
         "languages/",
@@ -57,6 +56,21 @@ urlpatterns = [
         "levels/",
         LevelListView.as_view(),
         name="level-list",
+    ),
+    path(
+        "levels/create/",
+        LevelCreateView.as_view(),
+        name="level-create",
+    ),
+    path(
+        "levels/<int:pk>/update/",
+        LevelUpdateView.as_view(),
+        name="level-update",
+    ),
+    path(
+        "levels/<int:pk>/delete/",
+        LevelDeleteView.as_view(),
+        name="level-delete",
     ),
     path("students/", StudentListView.as_view(), name="student-list"),
     path("", info, name="info"),

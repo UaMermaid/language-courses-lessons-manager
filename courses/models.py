@@ -14,10 +14,18 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def get_default_pk(cls):
+        language, created = cls.objects.get_or_create(
+            name="English",
+            defaults={"name": "English"}
+        )
+        return language.pk
+
 
 class Level(models.Model):
     level = models.CharField(max_length=2, unique=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     class Meta:
         ordering = ["level"]
@@ -25,18 +33,26 @@ class Level(models.Model):
     def __str__(self):
         return f"{self.level}"
 
+    @classmethod
+    def get_default_pk(cls):
+        level, created = cls.objects.get_or_create(
+            level="A0",
+            defaults={"level": "A0"}
+        )
+        return level.pk
+
 
 class Student(AbstractUser):
     phone_number = models.CharField(max_length=13, unique=True)
     student_language = models.ForeignKey(
         to=Language,
         on_delete=models.CASCADE,
-        default=Language.objects.get(id=1).pk
+        default=Language.get_default_pk
     )
     student_level = models.ForeignKey(
         to=Level,
         on_delete=models.CASCADE,
-        default=Level.objects.get(level="A1").pk
+        default=Level.get_default_pk
     )
 
     class Meta:
